@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_danh_gia_form" model="ir.ui.view">
+            <field name="name">danh_gia.form</field>
+            <field name="model">danh_gia</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <div class="oe_read_only" style="font-size:25px">Đánh giá</div>
+                        <group col="4">
+                            <field name="khach_hang_id"/>
+                            <field name="du_an_id"/>
+                            <field name="diem"/>
+                            <field name="ngay"/>
+                        </group>
+                        <group>
+                            <field name="nhan_xet"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_danh_gia_tree" model="ir.ui.view">
+            <field name="name">danh_gia.tree</field>
+            <field name="model">danh_gia</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="khach_hang_id"/>
+                    <field name="du_an_id"/>
+                    <field name="diem"/>
+                    <field name="ngay"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="danh_gia_search" model="ir.ui.view">
+            <field name="model">danh_gia</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="khach_hang_id"/>
+                    <field name="du_an_id"/>
+                    <field name="diem"/>
+                    <field name="ngay"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_danh_gia" model="ir.actions.act_window">
+            <field name="name">Đánh giá</field>
+            <field name="res_model">danh_gia</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="danh_gia_search"/>
+        </record>
+    </data>
+</odoo>
+

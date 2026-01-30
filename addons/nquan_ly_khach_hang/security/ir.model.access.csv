@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_khach_hang,khach_hang.khach_hang,model_khach_hang,base.group_user,1,1,1,1
+access_lich_hen,lich_hen.lich_hen,model_lich_hen,base.group_user,1,1,1,1
+access_tuong_tac,tuong_tac.tuong_tac,model_tuong_tac,base.group_user,1,1,1,1
+access_danh_gia,danh_gia.danh_gia,model_danh_gia,base.group_user,1,1,1,1
+

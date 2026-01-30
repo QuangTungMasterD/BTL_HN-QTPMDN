@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_lich_hen_form" model="ir.ui.view">
+            <field name="name">lich_hen.form</field>
+            <field name="model">lich_hen</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <div class="oe_read_only" style="font-size:25px">Lịch hẹn</div>
+                        <group col="4">
+                            <field name="khach_hang_id"/>
+                            <field name="nhan_vien_id"/>
+                            <field name="thoi_gian"/>
+                            <field name="trang_thai"/>
+                        </group>
+                        <group>
+                            <field name="dia_diem"/>
+                            <field name="noi_dung"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_lich_hen_tree" model="ir.ui.view">
+            <field name="name">lich_hen.tree</field>
+            <field name="model">lich_hen</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="khach_hang_id"/>
+                    <field name="nhan_vien_id"/>
+                    <field name="thoi_gian"/>
+                    <field name="trang_thai"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="lich_hen_search" model="ir.ui.view">
+            <field name="model">lich_hen</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="khach_hang_id"/>
+                    <field name="nhan_vien_id"/>
+                    <field name="thoi_gian"/>
+                    <field name="trang_thai"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_lich_hen" model="ir.actions.act_window">
+            <field name="name">Lịch hẹn</field>
+            <field name="res_model">lich_hen</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="lich_hen_search"/>
+        </record>
+    </data>
+</odoo>
+

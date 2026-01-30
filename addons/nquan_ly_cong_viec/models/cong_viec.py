@@ -1,4 +1,6 @@
 from odoo import models, fields
+from odoo.exceptions import ValidationError
+from odoo import api
 
 class CongViec(models.Model):
     _name = "cong_viec"
@@ -8,13 +10,32 @@ class CongViec(models.Model):
     ma_cv = fields.Char(string="Mã công việc", required=True)
     ten_cv = fields.Char(string="Tên công việc", required=True)
     mo_ta = fields.Text(string="Mô tả công việc")
-    noi_thuc_hien = fields.Char(string="Nơi thực hiện công việc", required=True)
-    ngay_bd = fields.Date(string="Ngày bắt đầu làm", string=True)
+    ngay_bd = fields.Date(string="Ngày bắt đầu làm", required=True)
     ngay_kt = fields.Date(string="Ngày hạn kết thúc", required = True)
+
     trang_thai = fields.Selection([
         ('moi', 'Mới'),
         ('dang_lam', 'Đang làm'),
         ('hoan_thanh', 'Hoàn thành'),
         ('huy', 'Hủy'),
     ], string='Trạng thái', default='moi')
-    
+
+    bao_cao_ids = fields.One2many(
+        'bao_cao_tien_do',
+        'cong_viec_id',
+        string='Báo cáo tiến độ'
+    )
+
+    phu_trach_id = fields.Many2one('nhan_vien', string="Nhân viên phụ trách")
+    du_an_id = fields.Many2one(
+        'du_an',
+        string='Dự án',
+        required=True,
+        ondelete='cascade'
+    )
+
+    @api.constrains('ngay_bd', 'ngay_kt')
+    def _check_ngay(self):
+        for rec in self:
+            if rec.ngay_bd and rec.ngay_kt and rec.ngay_kt < rec.ngay_bd:
+                raise ValidationError("Ngày kết thúc phải lớn hơn hoặc bằng ngày bắt đầu")

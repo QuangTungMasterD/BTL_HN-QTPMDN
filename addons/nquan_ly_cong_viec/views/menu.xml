@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <menuitem id="menu_qldu_an_root"
+                  name="QL Dự án - Công việc"
+                  sequence="10"/>
+
+        <menuitem id="menu_du_an"
+                  name="Dự án"
+                  parent="menu_qldu_an_root"
+                  action="action_du_an"
+                  sequence="1"/>
+
+        <menuitem id="menu_cong_viec"
+                  name="Công việc"
+                  parent="menu_qldu_an_root"
+                  action="action_cong_viec"
+                  sequence="2"/>
+
+        <menuitem id="menu_bao_cao_tien_do"
+                  name="Báo cáo tiến độ"
+                  parent="menu_qldu_an_root"
+                  action="action_bao_cao_tien_do"
+                  sequence="3"/>
+
+        <menuitem id="menu_kinh_phi_du_kien"
+                  name="Kinh phí dự kiến"
+                  parent="menu_qldu_an_root"
+                  action="action_kinh_phi_du_kien"
+                  sequence="4"/>
+
+        <menuitem id="menu_nhan_vien_tham_gia"
+                  name="Nhân viên tham gia"
+                  parent="menu_qldu_an_root"
+                  action="action_nhan_vien_tham_gia"
+                  sequence="5"/>
+    </data>
+</odoo>
+

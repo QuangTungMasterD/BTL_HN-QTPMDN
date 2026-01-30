@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <menuitem id="menu_kh_root"
+                  name="QL Khách hàng"
+                  sequence="20"/>
+
+        <menuitem id="menu_khach_hang"
+                  name="Khách hàng"
+                  parent="menu_kh_root"
+                  action="action_khach_hang"
+                  sequence="1"/>
+
+        <menuitem id="menu_lich_hen"
+                  name="Lịch hẹn"
+                  parent="menu_kh_root"
+                  action="action_lich_hen"
+                  sequence="2"/>
+
+        <menuitem id="menu_tuong_tac"
+                  name="Tương tác"
+                  parent="menu_kh_root"
+                  action="action_tuong_tac"
+                  sequence="3"/>
+
+        <menuitem id="menu_danh_gia"
+                  name="Đánh giá"
+                  parent="menu_kh_root"
+                  action="action_danh_gia"
+                  sequence="4"/>
+    </data>
+</odoo>

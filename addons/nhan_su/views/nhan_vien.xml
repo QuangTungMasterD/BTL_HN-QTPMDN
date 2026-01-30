@@ -15,19 +15,10 @@
                             <field name="ma_dinh_danh"/>
                             <field name="ngay_sinh"/>
                             <field name="tuoi"/>
-                            <field name="so_nguoi_bang_tuoi"/>
                             <field name="que_quan"/>
                             <field name="email"/>
                             <field name="anh" widget="image"/>
                         </group>
-                        <notebook>
-                            <page string="Danh sách lịch sử công tác">
-                                <field name="lich_su_cong_tac_ids"/>
-                            </page>
-                            <page string="Danh sách chứng chỉ bằng cấp">
-                                <field name="danh_sach_chung_chi_bang_cap_ids"/>
-                            </page>
-                        </notebook>
                     </sheet>
                     
                 </form>
@@ -45,7 +36,6 @@
                     <field name="ho_va_ten"/>
                     <field name="ngay_sinh"/>
                     <field name="tuoi"/>
-                    <field name="so_nguoi_bang_tuoi"/>
                     <field name="que_quan"/>
                     <field name="email"/>
                 </tree>

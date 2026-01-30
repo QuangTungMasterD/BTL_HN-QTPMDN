@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_khach_hang_form" model="ir.ui.view">
+            <field name="name">khach_hang.form</field>
+            <field name="model">khach_hang</field>
+            <field name="arch" type="xml">
+                <form class="khach_hang_form">
+                    <sheet>
+                        <div class="oe_read_only" style="font-size:25px">Khách hàng</div>
+                        <group col="4">
+                            <field name="ma_kh"/>
+                            <field name="ten_kh"/>
+                            <field name="loai_kh"/>
+                            <field name="ma_so_thue" attrs="{'invisible': [('loai_kh', '=', 'ca_nhan')]}"/>
+                            <field name="sdt"/>
+                            <field name="email"/>
+                        </group>
+                        <group string="Địa chỉ">
+                            <field name="dia_chi"/>
+                        </group>
+                        <group string="Ghi chú">
+                            <field name="ghi_chu"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_khach_hang_tree" model="ir.ui.view">
+            <field name="name">khach_hang.tree</field>
+            <field name="model">khach_hang</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="ma_kh"/>
+                    <field name="ten_kh"/>
+                    <field name="loai_kh"/>
+                    <field name="sdt"/>
+                    <field name="email"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="khach_hang_search" model="ir.ui.view">
+            <field name="model">khach_hang</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="ma_kh"/>
+                    <field name="ten_kh"/>
+                    <field name="sdt"/>
+                    <field name="email"/>
+                    <field name="loai_kh"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_khach_hang" model="ir.actions.act_window">
+            <field name="name">Khách hàng</field>
+            <field name="res_model">khach_hang</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="khach_hang_search"/>
+        </record>
+    </data>
+</odoo>

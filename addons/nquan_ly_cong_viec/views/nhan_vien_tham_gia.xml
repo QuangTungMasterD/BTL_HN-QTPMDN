@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_nhan_vien_tham_gia_form" model="ir.ui.view">
+            <field name="name">nhan_vien_tham_gia.form</field>
+            <field name="model">nhan_vien_tham_gia</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <div class="oe_read_only" style="font-size:25px">Nhân viên tham gia</div>
+                        <group col="4">
+                            <field name="du_an_id"/>
+                            <field name="nhan_vien_id"/>
+                            <field name="vai_tro"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_nhan_vien_tham_gia_tree" model="ir.ui.view">
+            <field name="name">nhan_vien_tham_gia.tree</field>
+            <field name="model">nhan_vien_tham_gia</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="du_an_id"/>
+                    <field name="nhan_vien_id"/>
+                    <field name="vai_tro"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="nhan_vien_tham_gia_search" model="ir.ui.view">
+            <field name="model">nhan_vien_tham_gia</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="du_an_id"/>
+                    <field name="nhan_vien_id"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_nhan_vien_tham_gia" model="ir.actions.act_window">
+            <field name="name">Nhân viên tham gia</field>
+            <field name="res_model">nhan_vien_tham_gia</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="nhan_vien_tham_gia_search"/>
+        </record>
+    </data>
+</odoo>

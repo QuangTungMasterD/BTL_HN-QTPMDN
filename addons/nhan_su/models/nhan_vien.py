@@ -17,46 +17,25 @@ class NhanVien(models.Model):
     
     ngay_sinh = fields.Date("Ngày sinh")
     que_quan = fields.Char("Quê quán")
-    email = fields.Char("Email")
+    email = fields.Char(string='Địa chỉ email', index=True)
     so_dien_thoai = fields.Char("Số điện thoại")
-    lich_su_cong_tac_ids = fields.One2many(
-        "lich_su_cong_tac", 
-        inverse_name="nhan_vien_id", 
-        string = "Danh sách lịch sử công tác")
     tuoi = fields.Integer("Tuổi", compute="_compute_tuoi", store=True)
     anh = fields.Binary("Ảnh")
-    danh_sach_chung_chi_bang_cap_ids = fields.One2many(
-        "danh_sach_chung_chi_bang_cap", 
-        inverse_name="nhan_vien_id", 
-        string = "Danh sách chứng chỉ bằng cấp")
-    so_nguoi_bang_tuoi = fields.Integer("Số người bằng tuổi", 
-                                        compute="so_nguoi_bang_tuoi",
-                                        store=True
-                                        )
-    
-    @api.depends("tuoi")
-    def _compute_so_nguoi_bang_tuoi(self):
-        for record in self:
-            if record.tuoi:
-                records = self.env['nhan_vien'].search(
-                    [
-                        ('tuoi', '=', record.tuoi),
-                        ('ma_dinh_danh', '!=', record.ma_dinh_danh)
-                    ]
-                )
-                record.so_nguoi_bang_tuoi = len(records)
-    _sql_constrains = [
-        ('ma_dinh_danh_unique', 'unique(ma_dinh_danh)', 'Mã định danh phải là duy nhất')
-    ]
+
+    don_vi_id = fields.Many2one('don_vi', string="Đơn vị")
+    chuc_vu_id = fields.Many2one('chuc_vu', string="Chức vụ")
+    trang_thai = fields.Selection(
+        [('dang_lam', 'Đang làm'),
+         ('tam_nghi', 'Tạm nghỉ'),
+         ('thoi_viec', 'Thôi việc')],
+        string="Trạng thái", default='dang_lam'
+    )
 
     @api.depends("ho_ten_dem", "ten")
     def _compute_ho_va_ten(self):
         for record in self:
             if record.ho_ten_dem and record.ten:
                 record.ho_va_ten = record.ho_ten_dem + ' ' + record.ten
-    
-    
-    
                 
     @api.onchange("ten", "ho_ten_dem")
     def _default_ma_dinh_danh(self):
