@@ -1,5 +1,136 @@
-.khach_hang_form .o_group {
+.o_form_view {
     background: #f5f7fa;
-    padding: 12px;
+    padding: 16px;
+    border-radius: 10px;
+}
+
+.o_main_navbar {
+    background-color: #0041aa;
+}
+
+.o_input,
+textarea,
+select {
+    padding: 6px 10px !important;
+    border-radius: 6px !important;
+    border: 1px solid #d0d7de;
+    background: #fff;
+}
+
+.o_input:focus,
+textarea:focus,
+select:focus {
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 1px #3b82f6;
+}
+
+.o_list_selection_box {
+    padding: 0 15px !important;
+    background-color: #5697ff;
+    color: #fcfcfc;
+}
+
+.custom-control-label {
+    
+}
+
+/* save button */
+.o_control_panel .o_form_button_save,
+.o_control_panel .btn-primary {
+    border-radius: 2px;
+    background-color: #3b82f6 !important;
+    border-color: #3b82f6 !important;
+    color: #fff !important;
+}
+
+.o_control_panel .o_form_button_save:hover,
+.o_control_panel .btn-primary:hover {
+    background-color: #2f71db !important;
+    border-color: #2f71db !important;
+}
+
+/* exit button */
+.o_control_panel .o_form_button_cancel,
+.o_control_panel .btn-secondary {
+    border-radius: 2px;
+    border-color: #fa3b3b !important;
+    color: #fa3b3b !important;
+    background: transparent !important;
+}
+
+.o_control_panel .o_form_button_cancel:hover {
+    background: #ffefef !important;
+}
+/*  */
+/* Tên action: Khách hàng */
+/* Breadcrumb - Khách hàng */
+.o_cp_top_left .breadcrumb-item a {
+    color: #3b82f6 !important;
+}
+
+/* Breadcrumb - Mới */
+/* .o_cp_top_left .breadcrumb-item.active span {
+    color: #5eead4 !important;
+    font-weight: 500;
+} */
+
+/* Dấu / */
+/* .breadcrumb-item + .breadcrumb-item::before {
+    color: #99f6e4 !important;
+} */
+
+/*  */
+.o_form_sheet {
     border-radius: 8px;
+}
+
+
+
+
+
+/* TABLE WRAP */
+.o_list_view table {
+    border-collapse: separate;
+    border-spacing: 0;
+    background: #fff;
+}
+
+/* HEADER */
+.o_list_view thead th {
+    background: #ffffff;
+    color: #111827;
+    font-weight: 600;
+    border-bottom: 1px solid #e5e7eb;
+    padding: 14px 10px;
+}
+
+/* ZEBRA ROW */
+.o_list_view tbody tr.o_data_row:nth-child(odd) {
+    background: #ffffff;
+}
+
+.o_list_view tbody tr.o_data_row:nth-child(even) {
+    background: #f9f9f9;
+}
+
+/* CELL */
+.o_list_view td {
+    padding: 12px 10px;
+    border-bottom: 1px solid #e5e7eb;
+    color: #374151;
+}
+
+/* HOVER – XANH NHẸ */
+.o_list_view tbody tr.o_data_row:hover {
+    background: #eff6ff; /* xanh rất nhẹ */
+}
+
+/* SELECTED ROW */
+.o_list_view tbody tr.o_selected_row {
+    background: #dbeafe !important;
+}
+
+/* CHECKBOX COLUMN */
+.o_list_record_selector {
+    background: transparent;
 }

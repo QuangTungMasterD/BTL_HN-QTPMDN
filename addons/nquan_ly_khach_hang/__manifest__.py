@@ -16,6 +16,11 @@ tương tác và đánh giá gắn với dự án.
     'version': '0.1',
 
     'depends': ['base', 'nhan_su'],
+    'assets': {
+        'web.assets_backend': [
+            'nquan_ly_khach_hang/static/src/css/khach_hang.css',
+        ],
+    },
 
     'data': [
         'security/ir.model.access.csv',
