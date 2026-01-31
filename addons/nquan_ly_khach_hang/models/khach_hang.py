@@ -1,4 +1,5 @@
-from odoo import models, fields
+from odoo import models, fields, api
+from odoo.exceptions import ValidationError
 
 class KhachHang(models.Model):
     _name = 'khach_hang'
@@ -17,3 +18,12 @@ class KhachHang(models.Model):
     )
     ma_so_thue = fields.Char(string="Mã số thuế")
     ghi_chu = fields.Text(string="Ghi chú")
+
+    @api.constrains('ma_kh')
+    def _check_ma_kh(self):
+        for rec in self:
+            if self.search_count([
+                ('ma_kh', '=', rec.ma_kh),
+                ('id', '!=', rec.id)
+            ]) > 0:
+                raise ValidationError("Mã khách hàng đã tồn tại!")

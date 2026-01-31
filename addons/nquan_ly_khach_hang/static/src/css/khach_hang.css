@@ -134,3 +134,9 @@ select:focus {
 .o_list_record_selector {
     background: transparent;
 }
+
+/* search */
+.o_searchview_input {
+    padding: 3px 5px;
+    border-radius: 2px;
+}

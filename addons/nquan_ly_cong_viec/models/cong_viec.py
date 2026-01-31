@@ -34,6 +34,15 @@ class CongViec(models.Model):
         ondelete='cascade'
     )
 
+    @api.constrains('ma_cv')
+    def _check_ma_cv(self):
+        for rec in self:
+            if self.search_count([
+                ('ma_cv', '=', rec.ma_cv),
+                ('id', '!=', rec.id)
+            ]) > 0:
+                raise ValidationError("Mã công việc đã tồn tại!")
+
     @api.constrains('ngay_bd', 'ngay_kt')
     def _check_ngay(self):
         for rec in self:

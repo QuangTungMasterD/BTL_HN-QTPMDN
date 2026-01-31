@@ -31,6 +31,16 @@ class NhanVien(models.Model):
         string="Trạng thái", default='dang_lam'
     )
 
+
+    @api.constrains('ma_dinh_danh')
+    def _check_ma_dinh_danh(self):
+        for rec in self:
+            if self.search_count([
+                ('ma_dinh_danh', '=', rec.ma_dinh_danh),
+                ('id', '!=', rec.id)
+            ]) > 0:
+                raise ValidationError("Mã nhân viên đã tồn tại!")
+
     @api.depends("ho_ten_dem", "ten")
     def _compute_ho_va_ten(self):
         for record in self:
