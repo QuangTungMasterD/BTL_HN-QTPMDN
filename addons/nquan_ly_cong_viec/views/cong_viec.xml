@@ -9,27 +9,27 @@
                     <sheet>
                         <div class="oe_read_only" style="font-size:25px">Công việc</div>
                         <group string="Thông tin chung" col="4">
-                            <field name="ma_cv"/>
-                            <field name="ten_cv"/>
-                            <field name="du_an_id"/>
-                            <field name="nhan_vien_phu_trach_ids" widget="many2many_tags"/>
-                            <field name="trang_thai"/>
+                            <field name="ma_cv" />
+                            <field name="ten_cv" />
+                            <field name="du_an_id" />
+                            <field name="nhan_vien_phu_trach_ids" widget="many2many_tags" />
+                            <field name="trang_thai" />
                         </group>
                         <group string="Thời gian" col="4">
-                            <field name="ngay_bd"/>
-                            <field name="ngay_kt"/>
+                            <field name="ngay_bd" />
+                            <field name="ngay_kt" />
                         </group>
                         <group string="Mô tả">
-                            <field name="mo_ta"/>
+                            <field name="mo_ta" />
                         </group>
                         <notebook>
                             <page string="Báo cáo tiến độ">
                                 <field name="bao_cao_ids">
                                     <tree editable="bottom">
-                                        <field name="ngay_bao_cao"/>
-                                        <field name="tien_do"/>
-                                        <field name="noi_dung"/>
-                                        <field name="nguoi_bao_cao_id" options="{'no_create': True}"/>
+                                        <field name="ngay_bao_cao" />
+                                        <field name="tien_do" />
+                                        <field name="noi_dung" />
+                                        <field name="nguoi_bao_cao_id" options="{'no_create': True}" />
                                     </tree>
                                 </field>
                             </page>
@@ -44,13 +44,13 @@
             <field name="model">cong_viec</field>
             <field name="arch" type="xml">
                 <tree>
-                    <field name="ma_cv"/>
-                    <field name="ten_cv"/>
-                    <field name="du_an_id"/>
-                    <field name="nhan_vien_phu_trach_ids" widget="many2many_tags"/>
-                    <field name="trang_thai"/>
-                    <field name="ngay_bd"/>
-                    <field name="ngay_kt"/>
+                    <field name="ma_cv" />
+                    <field name="ten_cv" />
+                    <field name="du_an_id" />
+                    <field name="nhan_vien_phu_trach_ids" widget="many2many_tags" />
+                    <field name="trang_thai" />
+                    <field name="ngay_bd" />
+                    <field name="ngay_kt" />
                 </tree>
             </field>
         </record>
@@ -59,22 +59,55 @@
             <field name="model">cong_viec</field>
             <field name="arch" type="xml">
                 <search>
-                    <field name="ma_cv"/>
-                    <field name="ten_cv"/>
-                    <field name="du_an_id"/>
-                    <field name="nhan_vien_phu_trach_ids" widget="many2many_tags"/>
-                    <field name="trang_thai"/>
-                    <field name="ngay_bd"/>
-                    <field name="ngay_kt"/>
+                    <field name="ma_cv" />
+                    <field name="ten_cv" />
+                    <field name="du_an_id" />
+                    <field name="nhan_vien_phu_trach_ids" widget="many2many_tags" />
+                    <field name="trang_thai" />
+                    <field name="ngay_bd" />
+                    <field name="ngay_kt" />
                 </search>
+            </field>
+        </record>
+
+        <record id="view_cong_viec_kanban" model="ir.ui.view">
+            <field name="name">cong_viec.kanban</field>
+            <field name="model">cong_viec</field>
+            <field name="arch" type="xml">
+                <kanban>
+                    <field name="ma_cv" />
+                    <field name="ten_cv" />
+                    <field name="trang_thai" />
+                    <field name="tien_do_hien_tai" />   <!-- Đã sửa -->
+                    <field name="du_an_id" />
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div class="oe_kanban_global_click">
+                                <div class="o_kanban_record_top">
+                                    <div class="o_kanban_record_headings">
+                                        <strong class="o_kanban_record_title">
+                                            <field name="ma_cv" /> - <field name="ten_cv" />
+                                        </strong>
+                                    </div>
+                                </div>
+                                <div class="o_kanban_record_body">
+                                    <div>Dự án: <field name="du_an_id" /></div>
+                                    <div>Trạng thái: <field name="trang_thai" /></div>
+                                    <div>Tiến độ: <field name="tien_do_hien_tai" />%</div>   <!-- Đã
+                                    sửa -->
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
             </field>
         </record>
 
         <record id="action_cong_viec" model="ir.actions.act_window">
             <field name="name">Công việc</field>
             <field name="res_model">cong_viec</field>
-            <field name="view_mode">tree,form</field>
-            <field name="search_view_id" ref="cong_viec_search"/>
+            <field name="view_mode">kanban,tree,form</field>
+            <field name="search_view_id" ref="cong_viec_search" />
         </record>
     </data>
 </odoo>

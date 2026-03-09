@@ -27,6 +27,7 @@
         'views/kinh_phi_du_kien.xml',
         'views/nhan_vien_tham_gia.xml',
         'views/bao_cao_tien_do_du_an.xml',
+        'views/du_an_dashboard.xml',
         'views/menu.xml',
     ],
 }

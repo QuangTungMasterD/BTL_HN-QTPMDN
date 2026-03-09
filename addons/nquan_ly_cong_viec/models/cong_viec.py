@@ -37,6 +37,23 @@ class CongViec(models.Model):
         ondelete='cascade'
     )
 
+    tien_do_hien_tai = fields.Float(
+        string="Tiến độ hiện tại (%)",
+        compute="_compute_tien_do_hien_tai",
+        store=True,
+        digits=(3,2),
+        help="Tiến độ được lấy từ báo cáo mới nhất"
+    )
+
+    @api.depends('bao_cao_ids', 'bao_cao_ids.tien_do')
+    def _compute_tien_do_hien_tai(self):
+        for record in self:
+            bao_cao_moi_nhat = record.bao_cao_ids.sorted(key=lambda r: r.ngay_bao_cao, reverse=True)[:1]
+            if bao_cao_moi_nhat:
+                record.tien_do_hien_tai = bao_cao_moi_nhat.tien_do
+            else:
+                record.tien_do_hien_tai = 0.0
+
     @api.constrains('ma_cv')
     def _check_ma_cv(self):
         for rec in self:

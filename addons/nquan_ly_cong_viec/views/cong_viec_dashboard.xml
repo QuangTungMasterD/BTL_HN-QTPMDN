@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Graph: Công việc theo trạng thái -->
+        <record id="view_cong_viec_graph_trang_thai" model="ir.ui.view">
+            <field name="name">cong_viec.graph.trang_thai</field>
+            <field name="model">cong_viec</field>
+            <field name="arch" type="xml">
+                <graph type="pie">
+                    <field name="trang_thai" type="row"/>
+                    <field name="id" type="measure" operator="count"/>
+                </graph>
+            </field>
+        </record>
+
+        <!-- Graph: Công việc theo dự án -->
+        <record id="view_cong_viec_graph_du_an" model="ir.ui.view">
+            <field name="name">cong_viec.graph.du_an</field>
+            <field name="model">cong_viec</field>
+            <field name="arch" type="xml">
+                <graph type="bar">
+                    <field name="du_an_id" type="row"/>
+                    <field name="id" type="measure" operator="count"/>
+                </graph>
+            </field>
+        </record>
+
+        <!-- Pivot: Công việc theo dự án và trạng thái -->
+        <record id="view_cong_viec_pivot" model="ir.ui.view">
+            <field name="name">cong_viec.pivot</field>
+            <field name="model">cong_viec</field>
+            <field name="arch" type="xml">
+                <pivot>
+                    <field name="du_an_id" type="row"/>
+                    <field name="trang_thai" type="col"/>
+                    <field name="id" type="measure" operator="count"/>
+                </pivot>
+            </field>
+        </record>
+
+        <!-- Action dashboard cho Công việc -->
+        <record id="action_cong_viec_dashboard" model="ir.actions.act_window">
+            <field name="name">Dashboard Công việc</field>
+            <field name="res_model">cong_viec</field>
+            <field name="view_mode">graph,pivot</field>
+            <field name="view_id" ref="view_cong_viec_graph_trang_thai"/>
+            <field name="context">{'search_default_group_by_trang_thai': 1}</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Thống kê công việc theo trạng thái, dự án,...
+                </p>
+            </field>
+        </record>
+    </data>
+</odoo>

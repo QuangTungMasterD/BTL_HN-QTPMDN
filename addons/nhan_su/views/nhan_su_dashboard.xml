@@ -9,7 +9,7 @@
                 <graph type="bar">
                     <field name="don_vi_id" type="row"/>
                     <field name="gioi_tinh" type="col"/>
-                    <!-- <field name="id" type="measure" operator="count"/> -->
+                    <field name="id" type="measure" operator="count"/>
                 </graph>
             </field>
         </record>
@@ -21,7 +21,7 @@
             <field name="arch" type="xml">
                 <graph type="bar">
                     <field name="chuc_vu_id" type="row"/>
-                    <!-- <field name="id" type="measure" operator="count"/> -->
+                    <field name="id" type="measure" operator="count"/>
                 </graph>
             </field>
         </record>
@@ -34,7 +34,7 @@
                 <pivot>
                     <field name="don_vi_id" type="row"/>
                     <field name="trang_thai" type="col"/>
-                    <!-- <field name="id" type="measure" operator="count"/> -->
+                    <field name="id" type="measure" operator="count"/>
                 </pivot>
             </field>
         </record>

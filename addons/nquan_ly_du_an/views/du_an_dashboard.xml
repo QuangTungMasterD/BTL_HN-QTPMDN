@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Graph: Dự án theo trạng thái -->
+    <record id="view_du_an_graph_trang_thai" model="ir.ui.view">
+        <field name="name">du_an.graph.trang_thai</field>
+        <field name="model">du_an</field>
+        <field name="arch" type="xml">
+            <graph type="pie">
+                <field name="trang_thai" type="row"/>
+                <field name="id" type="measure" operator="count"/>
+            </graph>
+        </field>
+    </record>
+
+    <!-- Graph: Dự án theo khách hàng -->
+    <record id="view_du_an_graph_khach_hang" model="ir.ui.view">
+        <field name="name">du_an.graph.khach_hang</field>
+        <field name="model">du_an</field>
+        <field name="arch" type="xml">
+            <graph type="bar">
+                <field name="khach_hang_id" type="row"/>
+                <field name="id" type="measure" operator="count"/>
+            </graph>
+        </field>
+    </record>
+
+    <!-- Graph: Dự án theo nhân viên phụ trách -->
+    <record id="view_du_an_graph_phu_trach" model="ir.ui.view">
+        <field name="name">du_an.graph.phu_trach</field>
+        <field name="model">du_an</field>
+        <field name="arch" type="xml">
+            <graph type="bar">
+                <field name="phu_trach_id" type="row"/>
+                <field name="id" type="measure" operator="count"/>
+            </graph>
+        </field>
+    </record>
+
+    <!-- Pivot: Dự án theo khách hàng và trạng thái -->
+    <record id="view_du_an_pivot" model="ir.ui.view">
+        <field name="name">du_an.pivot</field>
+        <field name="model">du_an</field>
+        <field name="arch" type="xml">
+            <pivot>
+                <field name="khach_hang_id" type="row"/>
+                <field name="trang_thai" type="col"/>
+                <field name="id" type="measure" operator="count"/>
+            </pivot>
+        </field>
+    </record>
+
+    <!-- Action dashboard cho Dự án -->
+    <record id="action_du_an_dashboard" model="ir.actions.act_window">
+        <field name="name">Dashboard Dự án</field>
+        <field name="res_model">du_an</field>
+        <field name="view_mode">graph,pivot</field>
+        <field name="view_id" ref="view_du_an_graph_trang_thai"/>
+        <field name="context">{'search_default_group_by_trang_thai': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Thống kê dự án theo trạng thái, khách hàng, nhân viên phụ trách,...
+            </p>
+        </field>
+    </record>
+</odoo>

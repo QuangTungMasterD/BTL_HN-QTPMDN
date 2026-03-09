@@ -2,8 +2,8 @@
 <odoo>
     <data>
         <menuitem id="menu_cong_viec_root"
-                  name="QL Công việc"
-                  sequence="1"/>
+            name="QL Công việc"
+            sequence="1" />
 
         <!-- <menuitem id="menu_du_an"
                   name="Dự án"
@@ -12,16 +12,22 @@
                   sequence="1"/> -->
 
         <menuitem id="menu_cong_viec"
-                  name="Công việc"
-                  parent="menu_cong_viec_root"
-                  action="action_cong_viec"
-                  sequence="2"/>
+            name="Công việc"
+            parent="menu_cong_viec_root"
+            action="action_cong_viec"
+            sequence="2" />
 
         <menuitem id="menu_bao_cao_tien_do_cong_viec"
-                  name="Báo cáo tiến độ"
-                  parent="menu_cong_viec_root"
-                  action="action_bao_cao_tien_do_cong_viec"
-                  sequence="3"/>
+            name="Báo cáo tiến độ"
+            parent="menu_cong_viec_root"
+            action="action_bao_cao_tien_do_cong_viec"
+            sequence="3" />
+
+        <menuitem id="menu_cong_viec_dashboard"
+          name="Dashboard"
+          parent="menu_cong_viec_root"
+          action="action_cong_viec_dashboard"
+          sequence="4"/>
 
         <!-- <menuitem id="menu_kinh_phi_du_kien"
                   name="Kinh phí dự kiến"

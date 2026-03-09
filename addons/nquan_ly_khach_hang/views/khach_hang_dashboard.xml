@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Graph: Khách hàng theo loại -->
+    <record id="view_khach_hang_graph_loai" model="ir.ui.view">
+        <field name="name">khach_hang.graph.loai</field>
+        <field name="model">khach_hang</field>
+        <field name="arch" type="xml">
+            <graph type="pie">
+                <field name="loai_kh" type="row"/>
+                <field name="id" type="measure" operator="count"/>
+            </graph>
+        </field>
+    </record>
+
+    <!-- Pivot: Khách hàng theo loại (có thể thêm nếu muốn) -->
+    <record id="view_khach_hang_pivot" model="ir.ui.view">
+        <field name="name">khach_hang.pivot</field>
+        <field name="model">khach_hang</field>
+        <field name="arch" type="xml">
+            <pivot>
+                <field name="loai_kh" type="row"/>
+                <field name="id" type="measure" operator="count"/>
+            </pivot>
+        </field>
+    </record>
+
+    <!-- Action dashboard cho Khách hàng -->
+    <record id="action_khach_hang_dashboard" model="ir.actions.act_window">
+        <field name="name">Dashboard Khách hàng</field>
+        <field name="res_model">khach_hang</field>
+        <field name="view_mode">graph,pivot</field>
+        <field name="view_id" ref="view_khach_hang_graph_loai"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Thống kê khách hàng theo loại hình...
+            </p>
+        </field>
+    </record>
+
+    <!-- Nếu muốn thêm biểu đồ cho các model liên quan, có thể tạo action riêng -->
+    <!-- Ví dụ: biểu đồ lịch hẹn theo trạng thái -->
+    <record id="view_lich_hen_graph_trang_thai" model="ir.ui.view">
+        <field name="name">lich_hen.graph.trang_thai</field>
+        <field name="model">lich_hen</field>
+        <field name="arch" type="xml">
+            <graph type="pie">
+                <field name="trang_thai" type="row"/>
+                <field name="id" type="measure" operator="count"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="action_lich_hen_dashboard" model="ir.actions.act_window">
+        <field name="name">Lịch hẹn theo trạng thái</field>
+        <field name="res_model">lich_hen</field>
+        <field name="view_mode">graph</field>
+        <field name="view_id" ref="view_lich_hen_graph_trang_thai"/>
+    </record>
+
+    <!-- Biểu đồ tương tác theo kênh -->
+    <record id="view_tuong_tac_graph_kenh" model="ir.ui.view">
+        <field name="name">tuong_tac.graph.kenh</field>
+        <field name="model">tuong_tac</field>
+        <field name="arch" type="xml">
+            <graph type="bar">
+                <field name="kenh" type="row"/>
+                <field name="id" type="measure" operator="count"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="action_tuong_tac_dashboard" model="ir.actions.act_window">
+        <field name="name">Tương tác theo kênh</field>
+        <field name="res_model">tuong_tac</field>
+        <field name="view_mode">graph</field>
+        <field name="view_id" ref="view_tuong_tac_graph_kenh"/>
+    </record>
+</odoo>

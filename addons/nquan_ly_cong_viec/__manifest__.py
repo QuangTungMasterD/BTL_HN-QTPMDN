@@ -26,6 +26,7 @@
         # 'views/du_an.xml',
         'views/cong_viec.xml',
         'views/bao_cao_tien_do.xml',
+        'views/cong_viec_dashboard.xml',
         # 'views/kinh_phi_du_kien.xml',
         # 'views/nhan_vien_tham_gia.xml',
         'views/menu.xml',
