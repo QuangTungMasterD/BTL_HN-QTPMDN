@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
-        <record id="view_bao_cao_tien_do_form" model="ir.ui.view">
-            <field name="name">bao_cao_tien_do.form</field>
-            <field name="model">bao_cao_tien_do</field>
+        <record id="view_bao_cao_tien_do_cong_viec_form" model="ir.ui.view">
+            <field name="name">bao_cao_tien_do_cong_viec.form</field>
+            <field name="model">bao_cao_tien_do_cong_viec</field>
             <field name="arch" type="xml">
                 <form>
                     <sheet>
@@ -16,40 +16,44 @@
                         <group>
                             <field name="noi_dung"/>
                         </group>
+                        <group>
+                            <field name="nguoi_bao_cao_id" options="{'no_create': True}"/>
+                        </group>
                     </sheet>
                 </form>
             </field>
         </record>
 
-        <record id="view_bao_cao_tien_do_tree" model="ir.ui.view">
-            <field name="name">bao_cao_tien_do.tree</field>
-            <field name="model">bao_cao_tien_do</field>
+        <record id="view_bao_cao_tien_do_cong_viec_tree" model="ir.ui.view">
+            <field name="name">bao_cao_tien_do_cong_viec.tree</field>
+            <field name="model">bao_cao_tien_do_cong_viec</field>
             <field name="arch" type="xml">
                 <tree>
                     <field name="cong_viec_id"/>
                     <field name="ngay_bao_cao"/>
                     <field name="tien_do"/>
+                    <field name="nguoi_bao_cao_id"/>
                 </tree>
             </field>
         </record>
 
-        <record id="bao_cao_tien_do_search" model="ir.ui.view">
-            <field name="model">bao_cao_tien_do</field>
+        <record id="bao_cao_tien_do_cong_viec_search" model="ir.ui.view">
+            <field name="model">bao_cao_tien_do_cong_viec</field>
             <field name="arch" type="xml">
                 <search>
                     <field name="cong_viec_id"/>
                     <field name="ngay_bao_cao"/>
                     <field name="tien_do"/>
+                    <field name="nguoi_bao_cao_id"/>
                 </search>
             </field>
         </record>
 
-        <record id="action_bao_cao_tien_do" model="ir.actions.act_window">
+        <record id="action_bao_cao_tien_do_cong_viec" model="ir.actions.act_window">
             <field name="name">Báo cáo tiến độ</field>
-            <field name="res_model">bao_cao_tien_do</field>
+            <field name="res_model">bao_cao_tien_do_cong_viec</field>
             <field name="view_mode">tree,form</field>
-            <field name="search_view_id" ref="bao_cao_tien_do_search"/>
+            <field name="search_view_id" ref="bao_cao_tien_do_cong_viec_search"/>
         </record>
     </data>
 </odoo>
-

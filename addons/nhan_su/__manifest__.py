@@ -28,6 +28,7 @@
         'views/chuc_vu.xml',
         'views/don_vi.xml',
         'views/nhan_vien.xml',
+        'views/nhan_su_dashboard.xml',
         'views/menu.xml',
     ],
     

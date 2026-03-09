@@ -12,7 +12,7 @@
                             <field name="ma_cv"/>
                             <field name="ten_cv"/>
                             <field name="du_an_id"/>
-                            <field name="phu_trach_id"/>
+                            <field name="nhan_vien_phu_trach_ids" widget="many2many_tags"/>
                             <field name="trang_thai"/>
                         </group>
                         <group string="Thời gian" col="4">
@@ -29,6 +29,7 @@
                                         <field name="ngay_bao_cao"/>
                                         <field name="tien_do"/>
                                         <field name="noi_dung"/>
+                                        <field name="nguoi_bao_cao_id" options="{'no_create': True}"/>
                                     </tree>
                                 </field>
                             </page>
@@ -46,7 +47,7 @@
                     <field name="ma_cv"/>
                     <field name="ten_cv"/>
                     <field name="du_an_id"/>
-                    <field name="phu_trach_id"/>
+                    <field name="nhan_vien_phu_trach_ids" widget="many2many_tags"/>
                     <field name="trang_thai"/>
                     <field name="ngay_bd"/>
                     <field name="ngay_kt"/>
@@ -61,7 +62,7 @@
                     <field name="ma_cv"/>
                     <field name="ten_cv"/>
                     <field name="du_an_id"/>
-                    <field name="phu_trach_id"/>
+                    <field name="nhan_vien_phu_trach_ids" widget="many2many_tags"/>
                     <field name="trang_thai"/>
                     <field name="ngay_bd"/>
                     <field name="ngay_kt"/>

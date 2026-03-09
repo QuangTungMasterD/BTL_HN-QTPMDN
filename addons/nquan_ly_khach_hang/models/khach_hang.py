@@ -6,11 +6,11 @@ class KhachHang(models.Model):
     _description = "Khách hàng"
     _rec_name = "ma_kh"
     
+    ma_kh = fields.Char(string="Mã khách hàng", required=True)
     ten_kh = fields.Char(string='Tên khách hàng', required=True)
     email = fields.Char(string='Địa chỉ email')
     sdt = fields.Char(string='Số điện thoại', required=True)
     dia_chi = fields.Text(string="Địa chỉ khách hàng", required=True)
-    ma_kh = fields.Char(string="Mã khách hàng", required=True)
     loai_kh = fields.Selection(
         [('ca_nhan', 'Cá nhân'), ('doanh_nghiep', 'Doanh nghiệp')],
         string="Loại khách hàng",
@@ -18,6 +18,10 @@ class KhachHang(models.Model):
     )
     ma_so_thue = fields.Char(string="Mã số thuế")
     ghi_chu = fields.Text(string="Ghi chú")
+
+    _sql_constraints = [
+        ('ma_kh_unique', 'unique(ma_kh)', 'Mã khách hàng đã tồn tại!')
+    ]
 
     @api.constrains('ma_kh')
     def _check_ma_kh(self):

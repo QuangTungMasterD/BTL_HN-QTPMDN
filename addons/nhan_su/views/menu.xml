@@ -31,5 +31,10 @@
             sequence="4"
             action="action_chuc_vu"
         />
+        <menuitem id="menu_nhan_su_dashboard"
+          name="Dashboard"
+          parent="menu_root"
+          action="action_nhan_su_dashboard"
+          sequence="5"/>
     </data>
 </odoo>

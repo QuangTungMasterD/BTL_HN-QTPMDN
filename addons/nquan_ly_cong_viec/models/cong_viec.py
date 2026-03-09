@@ -21,12 +21,15 @@ class CongViec(models.Model):
     ], string='Trạng thái', default='moi')
 
     bao_cao_ids = fields.One2many(
-        'bao_cao_tien_do',
+        'bao_cao_tien_do_cong_viec',
         'cong_viec_id',
         string='Báo cáo tiến độ'
     )
 
-    phu_trach_id = fields.Many2one('nhan_vien', string="Nhân viên phụ trách")
+    nhan_vien_phu_trach_ids = fields.Many2many(
+        'nhan_vien',
+        string="Nhân viên phụ trách"
+    )
     du_an_id = fields.Many2one(
         'du_an',
         string='Dự án',

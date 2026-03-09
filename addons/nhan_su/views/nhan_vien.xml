@@ -2,42 +2,77 @@
 <odoo>
     <data>
         <record id="view_nhan_vien_form" model="ir.ui.view">
-            <field name="name">nhan_vien</field>
+            <field name="name">nhan_vien.form</field>
             <field name="model">nhan_vien</field>
             <field name="arch" type="xml">
                 <form>
+                    <header>
+                        <field name="trang_thai" widget="statusbar" statusbar_visible="dang_lam,tam_nghi,thoi_viec"/>
+                    </header>
                     <sheet>
-                        <div class="oe_read_only" style="font-size:25px">Nhân viên</div>
-                        <group col="4" string="Thông tin chung">
-                            <field name="ho_ten_dem"/>
-                            <field name="ten"/>
-                            <field name="ho_va_ten"/>
-                            <field name="ma_dinh_danh"/>
-                            <field name="ngay_sinh"/>
-                            <field name="tuoi"/>
-                            <field name="que_quan"/>
-                            <field name="email"/>
-                            <field name="anh" widget="image"/>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="ho_va_ten" placeholder="Họ và tên"/>
+                            </h1>
+                        </div>
+                        <group col="4">
+                            <group col="2">
+                                <field name="anh" widget="image" class="oe_avatar"/>
+                            </group>
+                            <group col="2">
+                                <field name="ma_dinh_danh"/>
+                                <field name="ngay_sinh"/>
+                                <field name="gioi_tinh"/>
+                                <field name="tuoi"/>
+                            </group>
                         </group>
+                        <notebook>
+                            <page string="Thông tin cá nhân">
+                                <group>
+                                    <group>
+                                        <field name="ho_ten_dem"/>
+                                        <field name="ten"/>
+                                        <field name="que_quan"/>
+                                    </group>
+                                    <group>
+                                        <field name="email"/>
+                                        <field name="so_dien_thoai"/>
+                                    </group>
+                                </group>
+                            </page>
+                            <page string="Công việc">
+                                <group>
+                                    <group>
+                                        <field name="ngay_vao_lam"/>
+                                        <field name="don_vi_id"/>
+                                        <field name="chuc_vu_id"/>
+                                    </group>
+                                    <group>
+                                    </group>
+                                </group>
+                            </page>
+                            <page string="Ghi chú">
+                                <field name="ghi_chu" nolabel="1"/>
+                            </page>
+                        </notebook>
                     </sheet>
-                    
                 </form>
             </field>
         </record>
 
         <record id="view_nhan_vien_tree" model="ir.ui.view">
-            <field name="name">nhan_vien</field>
+            <field name="name">nhan_vien.tree</field>
             <field name="model">nhan_vien</field>
             <field name="arch" type="xml">
-                <tree>
+                <tree decoration-success="trang_thai=='dang_lam'" decoration-muted="trang_thai=='tam_nghi'" decoration-danger="trang_thai=='thoi_viec'">
                     <field name="ma_dinh_danh"/>
-                    <field name="ho_ten_dem"/>
-                    <field name="ten"/>
                     <field name="ho_va_ten"/>
                     <field name="ngay_sinh"/>
                     <field name="tuoi"/>
-                    <field name="que_quan"/>
-                    <field name="email"/>
+                    <field name="so_dien_thoai"/>
+                    <field name="don_vi_id"/>
+                    <field name="chuc_vu_id"/>
+                    <field name="trang_thai"/>
                 </tree>
             </field>
         </record>
@@ -48,10 +83,11 @@
                 <search>
                     <field name="ma_dinh_danh"/>
                     <field name="ho_va_ten"/>
-                    <field name="ngay_sinh"/>
-                    <field name="tuoi"/>
-                    <field name="que_quan"/>
+                    <field name="so_dien_thoai"/>
                     <field name="email"/>
+                    <field name="don_vi_id"/>
+                    <field name="chuc_vu_id"/>
+                    <filter name="dang_lam" string="Đang làm" domain="[('trang_thai','=','dang_lam')]"/>
                 </search>
             </field>
         </record>
@@ -60,9 +96,7 @@
             <field name="name">Nhân viên</field>
             <field name="res_model">nhan_vien</field>
             <field name="view_mode">tree,form</field>
-            <field name="search_view_id" ref = "nhan_vien_search"/>
+            <field name="search_view_id" ref="nhan_vien_search"/>
         </record>
     </data>
 </odoo>
-        
-    

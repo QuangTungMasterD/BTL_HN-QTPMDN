@@ -17,9 +17,10 @@
                         </group>
                         <group string="Thời gian" col="4">
                             <field name="ngay_bd"/>
-                            <field name="ngay_kt"/>
+                            <field name="ngay_kt_du_kien"/>
+                            <field name="ngay_kt_thuc_te"/>
                         </group>
-                        <notebook>
+                        <!-- <notebook>
                             <page string="Công việc">
                                 <field name="cong_viec_ids">
                                     <tree editable="bottom">
@@ -28,7 +29,7 @@
                                         <field name="phu_trach_id"/>
                                         <field name="trang_thai"/>
                                         <field name="ngay_bd"/>
-                                        <field name="ngay_kt"/>
+                                        <field name="ngay_kt_du_kien"/>
                                     </tree>
                                 </field>
                             </page>
@@ -41,10 +42,10 @@
                                     </tree>
                                 </field>
                             </page>
-                        </notebook>
+                        </notebook> -->
                     </sheet>
 
-                    <notebook>
+                    <!-- <notebook>
                         <page string="Nhân viên tham gia">
                             <field name="nhan_vien_tham_gia_ids">
                                 <tree editable="bottom">
@@ -53,7 +54,7 @@
                                 </tree>
                             </field>
                         </page>
-                    </notebook>
+                    </notebook> -->
                 </form>
             </field>
         </record>
@@ -68,7 +69,8 @@
                     <field name="phu_trach_id"/>
                     <field name="trang_thai"/>
                     <field name="ngay_bd"/>
-                    <field name="ngay_kt"/>
+                    <field name="ngay_kt_du_kien"/>
+                    <field name="ngay_kt_thuc_te"/>
                 </tree>
             </field>
         </record>
@@ -82,7 +84,8 @@
                     <field name="phu_trach_id"/>
                     <field name="trang_thai"/>
                     <field name="ngay_bd"/>
-                    <field name="ngay_kt"/>
+                    <field name="ngay_kt_du_kien"/>
+                    <field name="ngay_kt_thuc_te"/>
                 </search>
             </field>
         </record>

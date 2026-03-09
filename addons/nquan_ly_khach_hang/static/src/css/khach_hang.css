@@ -140,3 +140,24 @@ select:focus {
     padding: 3px 5px;
     border-radius: 2px;
 }
+
+/* CHECKBOX */
+.custom-control-label::before {
+    border-radius: 50%;
+}
+
+
+.custom-control-input:checked ~ .custom-control-label::before {
+    background-color: #3b82f6;
+    border-color: #3b82f6;
+}
+
+.custom-control-input:focus ~ .custom-control-label::before {
+    box-shadow: 0 0 0 2px rgba(59,130,246,.3);
+}
+
+/* .custom-control-label::before {
+    border-radius: 4px;
+} */
+
+
