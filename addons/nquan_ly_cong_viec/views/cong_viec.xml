@@ -67,6 +67,7 @@
                     <field name="trang_thai" />
                     <field name="ngay_bd" />
                     <field name="ngay_kt" />
+                    <filter string="Việc của tôi" name="my_tasks" domain="[('nhan_vien_phu_trach_ids.user_id', '=', uid)]"/>
                 </search>
             </field>
         </record>

@@ -9,6 +9,8 @@ class NhanVien(models.Model):
     _rec_name = 'ma_dinh_danh'
     _order = 'ten asc, tuoi desc'
 
+    user_id = fields.Many2one('res.users', string='Tài khoản', ondelete='set null')
+    
     ma_dinh_danh = fields.Char("Mã định danh", required=True)
 
     ho_ten_dem = fields.Char("Họ tên đệm", required=True)
