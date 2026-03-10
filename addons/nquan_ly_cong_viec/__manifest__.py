@@ -31,5 +31,9 @@
         # 'views/nhan_vien_tham_gia.xml',
         'views/menu.xml',
     ],
+
+    'demo': [
+        'demo/demo_cong_viec.xml',
+    ],
 }
 

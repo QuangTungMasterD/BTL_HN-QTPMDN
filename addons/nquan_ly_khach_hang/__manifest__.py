@@ -31,5 +31,9 @@ tương tác và đánh giá gắn với dự án.
         'views/khach_hang_dashboard.xml',
         'views/menu.xml',
     ],
+
+    'demo': [
+        'demo/demo_khach_hang.xml',
+    ],
 }
 

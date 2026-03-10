@@ -15,12 +15,6 @@ class DuAn(models.Model):
     ngay_kt_thuc_te = fields.Date(string='Ngày kết thúc thực tế')
     ghi_chu = fields.Text(string='Ghi chú')
 
-    # cong_viec_ids = fields.One2many(
-    #     'cong_viec',
-    #     'du_an_id',
-    #     string='Công việc'
-    # )
-
     kinh_phi_ids = fields.One2many(
         'kinh_phi_du_kien',
         'du_an_id',
@@ -37,6 +31,7 @@ class DuAn(models.Model):
     
     khach_hang_id = fields.Many2one(
         'khach_hang',
+        required=True,
         string="Khách hàng",
     )
 

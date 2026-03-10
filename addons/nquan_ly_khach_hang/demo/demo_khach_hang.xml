@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Khách hàng -->
+    <record id="khach_hang_vinh" model="khach_hang">
+        <field name="ma_kh">KH00001</field>
+        <field name="ten_kh">Vinh</field>
+        <field name="loai_kh">ca_nhan</field>
+        <field name="sdt">0909123456</field>
+        <field name="email">vinh@example.com</field>
+        <field name="dia_chi">Hà Nội</field>
+    </record>
+    <record id="khach_hang_phu" model="khach_hang">
+        <field name="ma_kh">KH00002</field>
+        <field name="ten_kh">Phú</field>
+        <field name="loai_kh">ca_nhan</field>
+        <field name="sdt">0909988776</field>
+        <field name="email">phu@example.com</field>
+        <field name="dia_chi">Hải Phòng</field>
+    </record>
+    <record id="khach_hang_khanh" model="khach_hang">
+        <field name="ma_kh">KH00003</field>
+        <field name="ten_kh">Khánh</field>
+        <field name="loai_kh">ca_nhan</field>
+        <field name="sdt">0909777888</field>
+        <field name="email">khanh@example.com</field>
+        <field name="dia_chi">Đà Nẵng</field>
+    </record>
+    <record id="khach_hang_cong_ty_abc" model="khach_hang">
+        <field name="ma_kh">KH00004</field>
+        <field name="ten_kh">Công ty ABC</field>
+        <field name="loai_kh">doanh_nghiep</field>
+        <field name="ma_so_thue">0101234567</field>
+        <field name="sdt">02412345678</field>
+        <field name="email">info@abc.com</field>
+        <field name="dia_chi">Hà Nội</field>
+    </record>
+
+    <!-- Lịch hẹn -->
+    <record id="lich_hen_1" model="lich_hen">
+        <field name="khach_hang_id" ref="khach_hang_vinh"/>
+        <field name="nhan_vien_id" ref="nhan_su.nhan_vien_vinh"/>
+        <field name="thoi_gian">2026-03-10 09:00:00</field>
+        <field name="dia_diem">Văn phòng</field>
+        <field name="noi_dung">Trao đổi về dự án mới</field>
+        <field name="trang_thai">du_kien</field>
+    </record>
+
+    <!-- Tương tác -->
+    <record id="tuong_tac_1" model="tuong_tac">
+        <field name="khach_hang_id" ref="khach_hang_phu"/>
+        <field name="nhan_vien_id" ref="nhan_su.nhan_vien_phu"/>
+        <field name="ngay">2026-03-08 10:30:00</field>
+        <field name="kenh">dien_thoai</field>
+        <field name="noi_dung">Gọi điện chào hàng</field>
+    </record>
+
+    <!-- Đánh giá -->
+    <record id="danh_gia_1" model="danh_gia">
+        <field name="khach_hang_id" ref="khach_hang_cong_ty_abc"/>
+        <field name="diem">5</field>
+        <field name="nhan_xet">Hài lòng về dịch vụ</field>
+        <field name="ngay">2026-03-09</field>
+    </record>
+</odoo>

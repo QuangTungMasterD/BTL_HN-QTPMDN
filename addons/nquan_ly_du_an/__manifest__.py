@@ -30,5 +30,9 @@
         'views/du_an_dashboard.xml',
         'views/menu.xml',
     ],
+
+    'demo': [
+        'demo/demo_du_an.xml',
+    ],
 }
 

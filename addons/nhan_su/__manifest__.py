@@ -32,4 +32,7 @@
         'views/menu.xml',
     ],
     
+    'demo': [
+        'demo/demo_nhan_su.xml',
+    ],
 }

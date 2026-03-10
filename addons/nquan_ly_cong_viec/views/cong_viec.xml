@@ -51,6 +51,7 @@
                     <field name="trang_thai" />
                     <field name="ngay_bd" />
                     <field name="ngay_kt" />
+                    <field name="tien_do_hien_tai" widget="progressbar"/>
                 </tree>
             </field>
         </record>
@@ -93,8 +94,7 @@
                                 <div class="o_kanban_record_body">
                                     <div>Dự án: <field name="du_an_id" /></div>
                                     <div>Trạng thái: <field name="trang_thai" /></div>
-                                    <div>Tiến độ: <field name="tien_do_hien_tai" />%</div>   <!-- Đã
-                                    sửa -->
+                                    <div>Tiến độ: <field name="tien_do_hien_tai" widget="progressbar"/></div>
                                 </div>
                             </div>
                         </t>
