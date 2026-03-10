@@ -24,6 +24,21 @@ class BaoCaoTienDoDuAn(models.Model):
 
     noi_dung = fields.Text(string='Nội dung báo cáo')
 
+    nguoi_bao_cao_id = fields.Many2one(
+        'nhan_vien',
+        string='Người báo cáo',
+        required=True,
+        domain="[('id', '=', du_an_id.phu_trach_id)]",
+        default=lambda self: self.env.user.nhan_vien_id
+    )
+
+    @api.constrains('nguoi_bao_cao_id', 'du_an_id')
+    def _check_nguoi_bao_cao(self):
+        for record in self:
+            if record.du_an_id and record.nguoi_bao_cao_id:
+                if record.nguoi_bao_cao_id != record.du_an_id.phu_trach_id:
+                    raise ValidationError("Chỉ nhân viên phụ trách dự án mới được phép báo cáo!")
+
     @api.constrains('tien_do')
     def _check_tien_do(self):
         for record in self:

@@ -12,11 +12,11 @@ class CongViec(models.Model):
     mo_ta = fields.Text(string="Mô tả công việc")
     ngay_bd = fields.Date(
         string="Ngày bắt đầu làm", 
-        # required=True
+        required=True
     )
     ngay_kt = fields.Date(
         string="Ngày hạn kết thúc", 
-        # required = True
+        required = True
     )
 
     trang_thai = fields.Selection([
@@ -74,3 +74,4 @@ class CongViec(models.Model):
         for rec in self:
             if rec.ngay_bd and rec.ngay_kt and rec.ngay_kt < rec.ngay_bd:
                 raise ValidationError("Ngày kết thúc phải lớn hơn hoặc bằng ngày bắt đầu")
+    

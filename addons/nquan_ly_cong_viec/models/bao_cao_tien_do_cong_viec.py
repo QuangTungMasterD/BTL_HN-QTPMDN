@@ -30,6 +30,7 @@ class BaoCaoTienDoCongViec(models.Model):
         string='Người báo cáo',
         required=True,
         # domain="[('id', 'in', cong_viec_id.nhan_vien_phu_trach_ids)]"
+        default=lambda self: self.env.user.nhan_vien_id
     )
 
     @api.constrains('tien_do')
@@ -43,4 +44,4 @@ class BaoCaoTienDoCongViec(models.Model):
         for record in self:
             if record.cong_viec_id and record.nguoi_bao_cao_id:
                 if record.nguoi_bao_cao_id not in record.cong_viec_id.nhan_vien_phu_trach_ids:
-                    raise ValidationError("Người báo cáo phải là nhân viên phụ trách công việc này!")
+                    raise ValidationError("Chỉ nhân viên phụ trách công việc mới được phép báo cáo!")
