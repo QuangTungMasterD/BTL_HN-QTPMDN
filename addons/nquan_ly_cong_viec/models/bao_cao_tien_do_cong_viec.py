@@ -5,6 +5,7 @@ from odoo import api
 class BaoCaoTienDoCongViec(models.Model):
     _name = 'bao_cao_tien_do_cong_viec'
     _description = 'Báo cáo tiến độ công việc'
+    _rec_name = "cong_viec_id"
 
     cong_viec_id = fields.Many2one(
         'cong_viec',
@@ -29,8 +30,6 @@ class BaoCaoTienDoCongViec(models.Model):
         'nhan_vien',
         string='Người báo cáo',
         required=True,
-        # domain="[('id', 'in', cong_viec_id.nhan_vien_phu_trach_ids)]"
-        default=lambda self: self.env.user.nhan_vien_id
     )
 
     @api.constrains('tien_do')

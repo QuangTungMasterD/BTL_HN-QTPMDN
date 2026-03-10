@@ -54,7 +54,7 @@ class CongViec(models.Model):
     @api.depends('bao_cao_ids', 'bao_cao_ids.tien_do')
     def _compute_tien_do_hien_tai(self):
         for record in self:
-            bao_cao_moi_nhat = record.bao_cao_ids.sorted(key=lambda r: r.ngay_bao_cao, reverse=True)[:1]
+            bao_cao_moi_nhat = record.bao_cao_ids.sorted(key=lambda r: (r.ngay_bao_cao, r.id), reverse=True)[:1]
             if bao_cao_moi_nhat:
                 record.tien_do_hien_tai = bao_cao_moi_nhat.tien_do
             else:

@@ -73,6 +73,7 @@ class DuAn(models.Model):
                 cong_viecs = self.env['cong_viec'].search([('du_an_id', '=', duan.id)])
                 tong = len(cong_viecs)
                 hoan_thanh = len(cong_viecs.filtered(lambda cv: cv.trang_thai == 'hoan_thanh'))
+                print(hoan_thanh)
             except KeyError:
                 tong = 0
                 hoan_thanh = 0
