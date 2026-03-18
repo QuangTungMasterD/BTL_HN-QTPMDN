@@ -29,7 +29,6 @@ tương tác và đánh giá gắn với dự án.
         'views/tuong_tac.xml',
         'views/danh_gia.xml',
         'views/khach_hang_dashboard.xml',
-        # 'data/email_templates.xml',
         'views/menu.xml',
     ],
 

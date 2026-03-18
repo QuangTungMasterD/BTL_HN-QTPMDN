@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+
+        <!-- Server action: Tạo công việc mặc định cho dự án mới -->
+        <record id="action_server_create_default_tasks" model="ir.actions.server">
+            <field name="name">Tạo công việc mặc định cho dự án</field>
+            <field name="model_id" ref="model_du_an"/>
+            <field name="state">code</field>
+            <field name="code">
+<![CDATA[
+task_templates = [
+    {
+        'ten_cv': 'Phân tích yêu cầu',
+        'mo_ta': 'Thu thập và phân tích yêu cầu khách hàng',
+        'ngay_bd': datetime.date.today(),
+        'ngay_kt': datetime.date.today() + datetime.timedelta(days=7),
+    },
+    {
+        'ten_cv': 'Thiết kế hệ thống',
+        'mo_ta': 'Thiết kế kiến trúc và cơ sở dữ liệu',
+        'ngay_bd': datetime.date.today(),
+        'ngay_kt': datetime.date.today() + datetime.timedelta(days=14),
+    },
+    {
+        'ten_cv': 'Tạo base theo thiết kế',
+        'mo_ta': 'Triển khai code theo thiết kế',
+        'ngay_bd': datetime.date.today() + datetime.timedelta(days=5),
+        'ngay_kt': datetime.date.today() + datetime.timedelta(days=30),
+    },
+]
+
+for project in records:
+    for tmpl in task_templates:
+        count = len(env['cong_viec'].search([('du_an_id', '=', project.id)]))
+        ma_cv = f"{project.ma_du_an}CV{count + 1:03d}"
+
+        env['cong_viec'].create({
+            'ma_cv': ma_cv,
+            'ten_cv': tmpl['ten_cv'],
+            'mo_ta': tmpl['mo_ta'],
+            'ngay_bd': tmpl.get('ngay_bd'),
+            'ngay_kt': tmpl.get('ngay_kt'),
+            'du_an_id': project.id,
+            'trang_thai': 'moi',
+            'nhan_vien_phu_trach_ids': [(4, project.phu_trach_id.id)] if project.phu_trach_id else [],
+        })
+]]>
+            </field>
+        </record>
+
+        <!-- Automated action: Khi tạo dự án mới -->
+        <record id="automated_action_create_tasks_on_project" model="base.automation">
+            <field name="name">Tạo công việc mặc định khi tạo dự án</field>
+            <field name="model_id" ref="model_du_an"/>
+            <field name="trigger">on_create</field>
+            <field name="action_server_id" ref="action_server_create_default_tasks"/>
+            <field name="active">True</field>
+        </record>
+
+    </data>
+</odoo>

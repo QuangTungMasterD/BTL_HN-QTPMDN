@@ -24,14 +24,9 @@
 
     'data': [
         'security/ir.model.access.csv',
-        # 'views/du_an.xml',
         'views/cong_viec.xml',
         'views/bao_cao_tien_do.xml',
         'views/cong_viec_dashboard.xml',
-        # 'views/kinh_phi_du_kien.xml',
-        # 'views/nhan_vien_tham_gia.xml',
-        # 'data/project_automation.xml',
-        # 'data/automation_data.xml',
         'views/menu.xml',
     ],
 

@@ -14,7 +14,7 @@
     'category': 'Sales/CRM',
     'version': '0.1',
 
-    'depends': ['base', 'nhan_su', 'nquan_ly_khach_hang'],
+    'depends': ['base', 'nhan_su', 'nquan_ly_khach_hang', 'base_automation'],
     'assets': {
         'web.assets_backend': [
             'nquan_ly_khach_hang/static/src/css/khach_hang.css',
@@ -28,6 +28,7 @@
         'views/nhan_vien_tham_gia.xml',
         'views/bao_cao_tien_do_du_an.xml',
         'views/du_an_dashboard.xml',
+        'data/automation/01_create_tasks_on_project.xml',
         'views/menu.xml',
     ],
 
