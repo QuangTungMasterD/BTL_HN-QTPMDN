@@ -29,6 +29,7 @@
         'views/bao_cao_tien_do_du_an.xml',
         'views/du_an_dashboard.xml',
         'data/automation/01_create_tasks_on_project.xml',
+        'data/automation/02_assign_project_manager.xml',
         'views/menu.xml',
     ],
 

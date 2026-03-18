@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+
+        <!-- Server action: Gán nhân viên phụ trách mặc định cho dự án -->
+        <record id="action_server_assign_default_project_manager" model="ir.actions.server">
+            <field name="name">Gán nhân viên phụ trách mặc định cho dự án</field>
+            <field name="model_id" ref="model_du_an"/>
+            <field name="state">code</field>
+            <field name="code">
+<![CDATA[
+for project in records:
+    if not project.phu_trach_id:
+        # Tìm nhân viên đầu tiên có chức vụ Giám đốc (GD) hoặc Trưởng phòng (TP) và đang làm
+        nhan_vien = env['nhan_vien'].search([
+            ('chuc_vu_id.ma_chuc_vu', 'in', ['GD', 'TP']),
+            ('trang_thai', '=', 'dang_lam')
+        ], limit=1)
+        if nhan_vien:
+            project.write({'phu_trach_id': nhan_vien.id})
+]]>
+            </field>
+        </record>
+
+        <!-- Automated action: Khi tạo dự án mới, nếu chưa có phụ trách thì gán -->
+        <record id="automated_action_assign_project_manager" model="base.automation">
+            <field name="name">Gán nhân viên phụ trách khi tạo dự án (nếu chưa chọn)</field>
+            <field name="model_id" ref="model_du_an"/>
+            <field name="trigger">on_create</field>
+            <field name="filter_pre_domain">[('phu_trach_id', '=', False)]</field>
+            <field name="action_server_id" ref="action_server_assign_default_project_manager"/>
+            <field name="active">True</field>
+        </record>
+
+    </data>
+</odoo>

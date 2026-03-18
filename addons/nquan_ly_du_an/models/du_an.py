@@ -103,3 +103,13 @@ class DuAn(models.Model):
                 # Gọi server action gửi thông báo (hoặc gửi trực tiếp)
                 self.env['ir.actions.server'].browse(ref('nquan_ly_cong_viec.server_action_notify_project_completed')).run([project.id])
         return True
+    
+    @api.constrains('phu_trach_id')
+    def _check_phu_trach_chuc_vu(self):
+        for record in self:
+            if record.phu_trach_id:
+                ma_cv = record.phu_trach_id.chuc_vu_id.ma_chuc_vu
+                if ma_cv not in ('GD', 'TP'):
+                    raise ValidationError("Nhân viên phụ trách phải có chức vụ Giám đốc (GD) hoặc Trưởng phòng (TP)!")
+                if record.phu_trach_id.trang_thai != 'dang_lam':
+                    raise ValidationError("Nhân viên phụ trách phải đang trong trạng thái 'Đang làm'!")
