@@ -5,7 +5,9 @@ from odoo import api
 class CongViec(models.Model):
     _name = "cong_viec"
     _description = "Quản lý công việc"
-    _rec_name = "ten_cv"
+    _rec_name = 'display_name'
+
+    display_name = fields.Char(string="Tên hiển thị", compute='_compute_display_name', store=True)
 
     ma_cv = fields.Char(string="Mã công việc", required=True)
     ten_cv = fields.Char(string="Tên công việc", required=True)
@@ -103,3 +105,8 @@ class CongViec(models.Model):
                         raise ValidationError(
                             f"Nhân viên {nv.ho_va_ten} không nằm trong danh sách nhân viên tham gia dự án {record.du_an_id.name}!"
                         )
+                    
+    @api.depends('ma_cv', 'ten_cv')
+    def _compute_display_name(self):
+        for record in self:
+            record.display_name = f"{record.ma_cv} - {record.ten_cv}"

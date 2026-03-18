@@ -30,6 +30,7 @@
         'data/templates/email_deadline_task_templates.xml',
         'data/automation/task_deadline_reminder.xml',
         'data/automation/update_task_status_from_progress.xml',
+        'data/automation/create_project_report_on_task_state.xml',
         'views/menu.xml',
     ],
 

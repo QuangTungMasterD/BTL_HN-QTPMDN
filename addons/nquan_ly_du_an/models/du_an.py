@@ -5,7 +5,9 @@ from odoo import api
 class DuAn(models.Model):
     _name = 'du_an'
     _description = 'Dự án'
-    _rec_name = "ma_du_an"
+
+    _rec_name = 'display_name'
+    display_name = fields.Char(string="Tên hiển thị", compute='_compute_display_name', store=True)
 
     ma_du_an = fields.Char(string='Mã dự án', required=True)
     name = fields.Char(string='Tên dự án', required=True)
@@ -113,3 +115,8 @@ class DuAn(models.Model):
                     raise ValidationError("Nhân viên phụ trách phải có chức vụ Giám đốc (GD) hoặc Trưởng phòng (TP)!")
                 if record.phu_trach_id.trang_thai != 'dang_lam':
                     raise ValidationError("Nhân viên phụ trách phải đang trong trạng thái 'Đang làm'!")
+
+    @api.depends('ma_du_an', 'name')
+    def _compute_display_name(self):
+        for record in self:
+            record.display_name = f"{record.ma_du_an} - {record.name}"

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+
+        <!-- Server action: Tạo báo cáo tiến độ dự án khi trạng thái công việc thay đổi -->
+        <record id="action_server_create_project_report_on_task_state" model="ir.actions.server">
+            <field name="name">Tạo báo cáo tiến độ dự án khi trạng thái công việc thay đổi</field>
+            <field name="model_id" ref="model_cong_viec"/>
+            <field name="state">code</field>
+            <field name="code">
+<![CDATA[
+for task in records:
+    if not task.du_an_id:
+        continue
+    project = task.du_an_id
+    # Tính tổng số công việc và số công việc hoàn thành của dự án
+    tasks = env['cong_viec'].search([('du_an_id', '=', project.id)])
+    total = len(tasks)
+    completed = len(tasks.filtered(lambda t: t.trang_thai == 'hoan_thanh'))
+    progress = (completed / total * 100) if total > 0 else 0.0
+
+    # Xác định người báo cáo (ưu tiên người phụ trách dự án, nếu không có thì dùng người phụ trách công việc hoặc người dùng hiện tại)
+    nguoi_bao_cao = project.phu_trach_id
+    # Fallback: lấy nhân viên đầu tiên trong hệ thống (đảm bảo không lỗi required)
+    if not nguoi_bao_cao:
+        nguoi_bao_cao = env['nhan_vien'].search([], limit=1)
+    if not nguoi_bao_cao:
+        continue  # không có nhân viên nào thì bỏ qua
+
+    # Tạo báo cáo tiến độ dự án mới
+    env['bao_cao_tien_do_du_an'].create({
+        'du_an_id': project.id,
+        'ngay_bao_cao': datetime.date.today(),
+        'tien_do': progress,
+        'noi_dung': f'Tự động tạo khi công việc {task.ma_cv} thay đổi trạng thái thành {task.trang_thai}',
+        'nguoi_bao_cao_id': nguoi_bao_cao.id,
+    })
+]]>
+            </field>
+        </record>
+
+        <!-- Automation 1: Khi công việc chuyển từ hoàn thành sang không hoàn thành -->
+        <record id="automated_action_project_report_from_completed_to_not" model="base.automation">
+            <field name="name">Tạo báo cáo dự án khi công việc rời khỏi trạng thái hoàn thành</field>
+            <field name="model_id" ref="model_cong_viec"/>
+            <field name="trigger">on_write</field>
+            <field name="filter_pre_domain">[('trang_thai', '=', 'hoan_thanh')]</field>
+            <field name="action_server_id" ref="action_server_create_project_report_on_task_state"/>
+            <field name="active">True</field>
+        </record>
+
+        <!-- Automation 2: Khi công việc chuyển từ không hoàn thành sang hoàn thành -->
+        <record id="automated_action_project_report_from_not_to_completed" model="base.automation">
+            <field name="name">Tạo báo cáo dự án khi công việc chuyển sang hoàn thành</field>
+            <field name="model_id" ref="model_cong_viec"/>
+            <field name="trigger">on_write</field>
+            <field name="filter_pre_domain">[('trang_thai', 'not in', ['hoan_thanh'])]</field>
+            <field name="action_server_id" ref="action_server_create_project_report_on_task_state"/>
+            <field name="active">True</field>
+        </record>
+
+    </data>
+</odoo>
