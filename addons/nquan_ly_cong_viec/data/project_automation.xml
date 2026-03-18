@@ -1,35 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <data noupdate="0">
-
-        <record id="action_update_project_status" model="ir.actions.server">
-            <field name="name">Cập nhật trạng thái dự án khi hoàn thành công việc</field>
-            <field name="model_id" ref="model_cong_viec" />
-            <field name="state">code</field>
-            <field name="code">
-                if records:
-                for task in records:
-                # Kiểm tra nếu công việc vừa được chuyển sang 'Hoàn thành'
-                if task.trang_thai == 'hoan_thanh':
-                project = task.du_an_id
-                if project:
-                # Lấy tất cả công việc của dự án này
-                all_tasks_in_project = env['cong_viec'].search([('du_an_id', '=', project.id)])
-                # Kiểm tra xem tất cả có trạng thái là 'hoan_thanh' không
-                if all(t.trang_thai == 'hoan_thanh' for t in all_tasks_in_project):
-                # Nếu đúng, cập nhật dự án
+    <record id="automation_cong_viec_done" model="base.automation">
+        <field name="name">Tự động cập nhật dự án khi công việc hoàn thành</field>
+        <!-- Model theo dõi: công việc -->
+        <field name="model_id" ref="nquan_ly_cong_viec.model_cong_viec"/>
+        <!-- Trigger: khi cập nhật bản ghi -->
+        <field name="trigger">on_write</field>
+        <!-- Điều kiện: chỉ kích hoạt khi trạng thái được chuyển thành 'hoan_thanh' -->
+        <field name="filter_domain">[('trang_thai','=','hoan_thanh')]</field>
+        <!-- Loại hành động: chạy code Python -->
+        <field name="state">code</field>
+        <!-- Code xử lý: kiểm tra dự án và cập nhật nếu tất cả công việc hoàn thành -->
+        <field name="code">
+for task in records:
+    project = task.du_an_id
+    if project:
+        # Tính lại tiến độ dự án (gọi hàm đã có)
+        project._tinh_tien_do()
+        # Kiểm tra nếu tất cả công việc của dự án đã hoàn thành
+        if project.tong_so_cong_viec > 0 and project.so_cong_viec_hoan_thanh == project.tong_so_cong_viec:
+            if project.trang_thai != 'hoan_thanh':
                 project.write({'trang_thai': 'hoan_thanh'})
-            </field>
-        </record>
-
-        <record id="automation_update_project_on_task_done" model="base.automation">
-            <field name="name">Tự động cập nhật dự án khi công việc cuối cùng hoàn thành</field>
-            <field name="model_id" ref="model_cong_viec" />
-            <field name="trigger">on_update</field>
-            'hoan_thanh' -->
-            <field name="filter">[('trang_thai','=','hoan_thanh')]</field>
-            <field name="action_server_ids" eval="[(4, ref('action_update_project_status'))]" />
-        </record>
-
-    </data>
+        </field>
+        <field name="active">True</field>
+    </record>
 </odoo>

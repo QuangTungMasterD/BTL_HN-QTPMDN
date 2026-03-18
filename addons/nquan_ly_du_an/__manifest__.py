@@ -28,7 +28,6 @@
         'views/nhan_vien_tham_gia.xml',
         'views/bao_cao_tien_do_du_an.xml',
         'views/du_an_dashboard.xml',
-        # 'data/project_automation.xml',
         'views/menu.xml',
     ],
 

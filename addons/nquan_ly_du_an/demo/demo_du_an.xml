@@ -65,19 +65,19 @@
         <field name="vai_tro">Developer</field>
     </record>
 
-    <!-- Báo cáo tiến độ dự án -->
+    <!-- Báo cáo tiến độ dự án (đã sửa) -->
     <record id="bao_cao_tien_do_du_an_1" model="bao_cao_tien_do_du_an">
         <field name="du_an_id" ref="du_an_1"/>
         <field name="ngay_bao_cao">2026-03-01</field>
         <field name="tien_do">30</field>
         <field name="noi_dung">Hoàn thành phân tích yêu cầu</field>
-        <field name="nguoi_bao_cao_id" />"nhan_su.nhan_vien_khanh
+        <field name="nguoi_bao_cao_id" ref="nhan_su.nhan_vien_khanh"/>
     </record>
     <record id="bao_cao_tien_do_du_an_2" model="bao_cao_tien_do_du_an">
         <field name="du_an_id" ref="du_an_1"/>
         <field name="ngay_bao_cao">2026-03-08</field>
         <field name="tien_do">45</field>
-        <field name="noi_dung" ref="nhan_su.nhan_vien_khanh"/>
+        <field name="noi_dung">Hoàn thành giai đoạn thiết kế</field>
         <field name="nguoi_bao_cao_id" ref="nhan_su.nhan_vien_khanh"/>
     </record>
 </odoo>

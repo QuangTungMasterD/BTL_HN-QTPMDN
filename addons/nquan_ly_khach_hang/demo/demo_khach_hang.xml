@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <!-- Khách hàng -->
     <record id="khach_hang_vinh" model="khach_hang">
         <field name="ma_kh">KH00001</field>
         <field name="ten_kh">Vinh</field>

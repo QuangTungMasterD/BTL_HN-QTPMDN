@@ -8,7 +8,7 @@ class KhachHang(models.Model):
     
     ma_kh = fields.Char(string="Mã khách hàng", required=True)
     ten_kh = fields.Char(string='Tên khách hàng', required=True)
-    email = fields.Char(string='Địa chỉ email')
+    email = fields.Char(string='Địa chỉ email', required=True)
     sdt = fields.Char(string='Số điện thoại', required=True)
     dia_chi = fields.Text(string="Địa chỉ khách hàng", required=True)
     loai_kh = fields.Selection(

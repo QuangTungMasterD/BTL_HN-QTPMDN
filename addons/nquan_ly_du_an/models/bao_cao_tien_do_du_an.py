@@ -28,8 +28,6 @@ class BaoCaoTienDoDuAn(models.Model):
         'nhan_vien',
         string='Người báo cáo',
         required=True,
-        # domain="[('id', '=', du_an_id.phu_trach_id)]",
-        default=lambda self: self.env.user.nhan_vien_id
     )
 
     @api.constrains('nguoi_bao_cao_id', 'du_an_id')

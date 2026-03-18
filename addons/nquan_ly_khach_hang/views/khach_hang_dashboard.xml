@@ -1,30 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <!-- Graph: Khách hàng theo loại -->
+    <!-- Graph: vẫn giữ operator="count" (Graph vẫn ổn) -->
     <record id="view_khach_hang_graph_loai" model="ir.ui.view">
         <field name="name">khach_hang.graph.loai</field>
         <field name="model">khach_hang</field>
         <field name="arch" type="xml">
-            <graph type="pie">
+            <graph type="pie" string="Khách hàng theo loại">
                 <field name="loai_kh" type="row"/>
-                <field name="id" type="measure" operator="count"/>
+                <field name="id" type="measure" operator="count" string="Số lượng"/>
             </graph>
         </field>
     </record>
 
-    <!-- Pivot: Khách hàng theo loại (có thể thêm nếu muốn) -->
+    <!-- Pivot: XÓA operator="count" (đây là thủ phạm) -->
     <record id="view_khach_hang_pivot" model="ir.ui.view">
         <field name="name">khach_hang.pivot</field>
         <field name="model">khach_hang</field>
         <field name="arch" type="xml">
-            <pivot>
+            <pivot string="Khách hàng theo loại - Pivot">
                 <field name="loai_kh" type="row"/>
-                <field name="id" type="measure" operator="count"/>
+                <field name="id" type="measure" string="Số lượng"/>   <!-- Chỉ cần thế này -->
             </pivot>
         </field>
     </record>
 
-    <!-- Action dashboard cho Khách hàng -->
+    <!-- Các view khác giữ nguyên (Graph không sao) -->
+    <record id="view_lich_hen_graph_trang_thai" model="ir.ui.view">
+        <field name="name">lich_hen.graph.trang_thai</field>
+        <field name="model">lich_hen</field>
+        <field name="arch" type="xml">
+            <graph type="pie" string="Lịch hẹn theo trạng thái">
+                <field name="trang_thai" type="row"/>
+                <field name="id" type="measure" operator="count" string="Số lượng"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="view_tuong_tac_graph_kenh" model="ir.ui.view">
+        <field name="name">tuong_tac.graph.kenh</field>
+        <field name="model">tuong_tac</field>
+        <field name="arch" type="xml">
+            <graph type="bar" string="Tương tác theo kênh">
+                <field name="kenh" type="row"/>
+                <field name="id" type="measure" operator="count" string="Số lượng"/>
+            </graph>
+        </field>
+    </record>
+
+    <!-- Action giữ nguyên -->
     <record id="action_khach_hang_dashboard" model="ir.actions.act_window">
         <field name="name">Dashboard Khách hàng</field>
         <field name="res_model">khach_hang</field>
@@ -37,36 +60,12 @@
         </field>
     </record>
 
-    <!-- Nếu muốn thêm biểu đồ cho các model liên quan, có thể tạo action riêng -->
-    <!-- Ví dụ: biểu đồ lịch hẹn theo trạng thái -->
-    <record id="view_lich_hen_graph_trang_thai" model="ir.ui.view">
-        <field name="name">lich_hen.graph.trang_thai</field>
-        <field name="model">lich_hen</field>
-        <field name="arch" type="xml">
-            <graph type="pie">
-                <field name="trang_thai" type="row"/>
-                <field name="id" type="measure" operator="count"/>
-            </graph>
-        </field>
-    </record>
-
+    <!-- Action Lich hen và Tuong tac giữ nguyên -->
     <record id="action_lich_hen_dashboard" model="ir.actions.act_window">
         <field name="name">Lịch hẹn theo trạng thái</field>
         <field name="res_model">lich_hen</field>
         <field name="view_mode">graph</field>
         <field name="view_id" ref="view_lich_hen_graph_trang_thai"/>
-    </record>
-
-    <!-- Biểu đồ tương tác theo kênh -->
-    <record id="view_tuong_tac_graph_kenh" model="ir.ui.view">
-        <field name="name">tuong_tac.graph.kenh</field>
-        <field name="model">tuong_tac</field>
-        <field name="arch" type="xml">
-            <graph type="bar">
-                <field name="kenh" type="row"/>
-                <field name="id" type="measure" operator="count"/>
-            </graph>
-        </field>
     </record>
 
     <record id="action_tuong_tac_dashboard" model="ir.actions.act_window">

@@ -8,7 +8,7 @@
         <field name="ngay_bd">2026-03-01</field>
         <field name="ngay_kt">2026-03-15</field>
         <field name="trang_thai">moi</field>
-        <field name="du_an_id" ref="nquan_ly_du_an.du_an_1"/>
+        <field name="du_an_id" ref="nquan_ly_du_an.DA001"/>
         <field name="nhan_vien_phu_trach_ids" eval="[(6,0,[ref('nhan_su.nhan_vien_khanh'), ref('nhan_su.nhan_vien_phu')])]"/>
     </record>
     <record id="cong_viec_2" model="cong_viec">
@@ -18,7 +18,7 @@
         <field name="ngay_bd">2026-03-01</field>
         <field name="ngay_kt">2026-03-20</field>
         <field name="trang_thai">hoan_thanh</field>
-        <field name="du_an_id" ref="nquan_ly_du_an.du_an_1"/>
+        <field name="du_an_id" ref="nquan_ly_du_an.DA001"/>
         <field name="nhan_vien_phu_trach_ids" eval="[(6,0,[ref('nhan_su.nhan_vien_vinh')])]"/>
     </record>
     <record id="cong_viec_3" model="cong_viec">
@@ -28,7 +28,7 @@
         <field name="ngay_bd">2026-03-05</field>
         <field name="ngay_kt">2026-03-25</field>
         <field name="trang_thai">dang_lam</field>
-        <field name="du_an_id" ref="nquan_ly_du_an.du_an_2"/>
+        <field name="du_an_id" ref="nquan_ly_du_an.DA002"/>
         <field name="nhan_vien_phu_trach_ids" eval="[(6,0,[ref('nhan_su.nhan_vien_phu')])]"/>
     </record>
     <record id="cong_viec_4" model="cong_viec">
@@ -38,7 +38,7 @@
         <field name="ngay_bd">2026-03-01</field>
         <field name="ngay_kt">2026-03-10</field>
         <field name="trang_thai">hoan_thanh</field>
-        <field name="du_an_id" ref="nquan_ly_du_an.du_an_1"/>
+        <field name="du_an_id" ref="nquan_ly_du_an.DA001"/>
         <field name="nhan_vien_phu_trach_ids" eval="[(6,0,[ref('nhan_su.nhan_vien_khanh')])]"/>
     </record>
     <record id="cong_viec_5" model="cong_viec">
@@ -48,7 +48,7 @@
         <field name="ngay_bd">2026-03-01</field>
         <field name="ngay_kt">2026-03-15</field>
         <field name="trang_thai">moi</field>
-        <field name="du_an_id" ref="nquan_ly_du_an.du_an_1"/>
+        <field name="du_an_id" ref="nquan_ly_du_an.DA001"/>
         <field name="nhan_vien_phu_trach_ids" eval="[(6,0,[ref('nhan_su.nhan_vien_vinh')])]"/>
     </record>
 

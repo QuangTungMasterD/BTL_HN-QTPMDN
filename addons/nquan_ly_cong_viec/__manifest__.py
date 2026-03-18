@@ -14,7 +14,8 @@
     'category': 'Project',
     'version': '0.1',
 
-    'depends': ['base', 'nhan_su', 'nquan_ly_du_an'],
+    'depends': ['base', 'nhan_su', 'nquan_ly_du_an', 'base_automation'],
+    # 'depends': ['base', 'nhan_su', 'nquan_ly_du_an'],
     'assets': {
         'web.assets_backend': [
             'nquan_ly_khach_hang/static/src/css/khach_hang.css',
@@ -29,6 +30,7 @@
         'views/cong_viec_dashboard.xml',
         # 'views/kinh_phi_du_kien.xml',
         # 'views/nhan_vien_tham_gia.xml',
+        'data/project_automation.xml',
         'views/menu.xml',
     ],
 
