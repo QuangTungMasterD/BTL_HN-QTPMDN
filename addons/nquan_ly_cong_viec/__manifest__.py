@@ -14,7 +14,7 @@
     'category': 'Project',
     'version': '0.1',
 
-    'depends': ['base', 'nhan_su', 'nquan_ly_du_an', 'base_automation'],
+    'depends': ['base', 'nhan_su', 'nquan_ly_du_an', 'base_automation', 'mail'],
     # 'depends': ['base', 'nhan_su', 'nquan_ly_du_an'],
     'assets': {
         'web.assets_backend': [
@@ -27,6 +27,8 @@
         'views/cong_viec.xml',
         'views/bao_cao_tien_do.xml',
         'views/cong_viec_dashboard.xml',
+        'data/templates/email_deadline_task_templates.xml',
+        'data/automation/task_deadline_reminder.xml',
         'views/menu.xml',
     ],
 

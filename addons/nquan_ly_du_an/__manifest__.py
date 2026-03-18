@@ -14,7 +14,7 @@
     'category': 'Sales/CRM',
     'version': '0.1',
 
-    'depends': ['base', 'nhan_su', 'nquan_ly_khach_hang', 'base_automation'],
+    'depends': ['base', 'nhan_su', 'nquan_ly_khach_hang', 'base_automation', 'mail'],
     'assets': {
         'web.assets_backend': [
             'nquan_ly_khach_hang/static/src/css/khach_hang.css',
@@ -30,6 +30,8 @@
         'views/du_an_dashboard.xml',
         'data/automation/01_create_tasks_on_project.xml',
         'data/automation/02_assign_project_manager.xml',
+        'data/templates/email_deadline_project_templates.xml',
+        'data/automation/project_deadline_reminder.xml',
         'views/menu.xml',
     ],
 

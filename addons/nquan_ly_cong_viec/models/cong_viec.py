@@ -34,8 +34,10 @@ class CongViec(models.Model):
 
     nhan_vien_phu_trach_ids = fields.Many2many(
         'nhan_vien',
-        string="Nhân viên phụ trách"
+        string="Nhân viên phụ trách",
+        domain="[('id', 'in', available_nhan_vien_ids)]"
     )
+
     du_an_id = fields.Many2one(
         'du_an',
         string='Dự án',
@@ -50,6 +52,21 @@ class CongViec(models.Model):
         digits=(3,2),
         help="Tiến độ được lấy từ báo cáo mới nhất"
     )
+
+    available_nhan_vien_ids = fields.Many2many(
+        'nhan_vien',
+        compute='_compute_available_nhan_vien_ids',
+        string='Nhân viên có thể phụ trách'
+    )
+
+    @api.depends('du_an_id')
+    def _compute_available_nhan_vien_ids(self):
+        for record in self:
+            if record.du_an_id:
+                nhan_vien_list = record.du_an_id.nhan_vien_tham_gia_ids.mapped('nhan_vien_id')
+                record.available_nhan_vien_ids = nhan_vien_list
+            else:
+                record.available_nhan_vien_ids = False
 
     @api.depends('bao_cao_ids', 'bao_cao_ids.tien_do')
     def _compute_tien_do_hien_tai(self):
@@ -74,15 +91,15 @@ class CongViec(models.Model):
         for rec in self:
             if rec.ngay_bd and rec.ngay_kt and rec.ngay_kt < rec.ngay_bd:
                 raise ValidationError("Ngày kết thúc phải lớn hơn hoặc bằng ngày bắt đầu")
-    
-    def action_confirm_completion(self):
-        for task in self:
-            if task.trang_thai == 'cho_xac_nhan':
-                task.trang_thai = 'hoan_thanh'
-                if task.du_an_id:
-                    task.du_an_id._tinh_tien_do()
-                    # Kiểm tra nếu tất cả công việc của dự án đã hoàn thành
-                    project = task.du_an_id
-                    if project.tong_so_cong_viec > 0 and project.so_cong_viec_hoan_thanh == project.tong_so_cong_viec:
-                        project.write({'trang_thai': 'cho_xac_nhan'})
-        return True
+
+    @api.constrains('nhan_vien_phu_trach_ids', 'du_an_id')
+    def _check_nhan_vien_thuoc_du_an(self):
+        for record in self:
+            if record.du_an_id and record.nhan_vien_phu_trach_ids:
+                # Lấy danh sách nhân viên được phép (tham gia dự án)
+                allowed_nhan_vien = record.du_an_id.nhan_vien_tham_gia_ids.mapped('nhan_vien_id')
+                for nv in record.nhan_vien_phu_trach_ids:
+                    if nv not in allowed_nhan_vien:
+                        raise ValidationError(
+                            f"Nhân viên {nv.ho_va_ten} không nằm trong danh sách nhân viên tham gia dự án {record.du_an_id.name}!"
+                        )

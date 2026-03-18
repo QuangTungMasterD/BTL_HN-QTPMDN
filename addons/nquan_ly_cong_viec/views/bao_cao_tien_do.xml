@@ -8,6 +8,7 @@
                 <form>
                     <sheet>
                         <div class="oe_read_only" style="font-size:25px">Báo cáo tiến độ</div>
+                        <field name="available_nhan_vien_cv_ids" invisible="1"/>
                         <group col="4">
                             <field name="cong_viec_id"/>
                             <field name="ngay_bao_cao"/>

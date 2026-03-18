@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+
+        <!-- Server action: Gửi email nhắc dự án sắp hết hạn -->
+        <record id="action_server_project_deadline" model="ir.actions.server">
+            <field name="name">Gửi email nhắc dự án sắp hết hạn</field>
+            <field name="model_id" ref="model_du_an" />
+            <field name="state">code</field>
+            <field name="code">
+<![CDATA[
+template = env.ref('nquan_ly_du_an.email_template_project_deadline')
+for project in records:
+    if project.phu_trach_id and project.phu_trach_id.work_email:
+        template.send_mail(project.id, force_send=True)
+]]>
+            </field>
+        </record>
+
+        <!-- Automated action: Nhắc trước 1 ngày -->
+        <record id="automated_action_project_deadline_1day" model="base.automation">
+            <field name="name">Nhắc deadline dự án trước 1 ngày</field>
+            <field name="model_id" ref="model_du_an" />
+
+            <field name="trigger">on_time</field>
+            <field name="trg_date_id" ref="field_du_an__ngay_kt_du_kien" />
+            <field name="trg_date_range">-1</field>
+            <field name="trg_date_range_type">day</field>
+
+            <field name="filter_pre_domain">
+                [('trang_thai', 'not in', ['hoan_thanh', 'huy'])]
+            </field>
+
+            <field name="action_server_id" ref="action_server_project_deadline" />
+            <field name="active">True</field>
+        </record>
+
+        <!-- Nhắc trước 3 ngày -->
+        <record id="automated_action_project_deadline_3day" model="base.automation">
+            <field name="name">Nhắc deadline dự án trước 3 ngày</field>
+            <field name="model_id" ref="model_du_an" />
+
+            <field name="trigger">on_time</field>
+            <field name="trg_date_id" ref="field_du_an__ngay_kt_du_kien" />
+            <field name="trg_date_range">-3</field>
+            <field name="trg_date_range_type">day</field>
+
+            <field name="filter_pre_domain">
+                [('trang_thai', 'not in', ['hoan_thanh', 'huy'])]
+            </field>
+
+            <field name="action_server_id" ref="action_server_project_deadline" />
+            <field name="active">True</field>
+        </record>
+
+    </data>
+</odoo>

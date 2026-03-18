@@ -30,7 +30,22 @@ class BaoCaoTienDoCongViec(models.Model):
         'nhan_vien',
         string='Người báo cáo',
         required=True,
+        domain="[('id', 'in', available_nhan_vien_cv_ids)]"
     )
+
+    available_nhan_vien_cv_ids = fields.Many2many(
+        'nhan_vien',
+        compute='_compute_available_nhan_vien_cv_ids',
+        string='Nhân viên được phép báo cáo'
+    )
+
+    @api.depends('cong_viec_id')
+    def _compute_available_nhan_vien_cv_ids(self):
+        for record in self:
+            if record.cong_viec_id:
+                record.available_nhan_vien_cv_ids = record.cong_viec_id.nhan_vien_phu_trach_ids
+            else:
+                record.available_nhan_vien_cv_ids = False
 
     @api.constrains('tien_do')
     def _check_tien_do(self):

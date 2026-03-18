@@ -8,6 +8,7 @@
                 <form>
                     <sheet>
                         <div class="oe_read_only" style="font-size:25px">Công việc</div>
+                        <field name="available_nhan_vien_ids" invisible="1"/>
                         <group string="Thông tin chung" col="4">
                             <field name="ma_cv" />
                             <field name="ten_cv" />
@@ -22,18 +23,6 @@
                         <group string="Mô tả">
                             <field name="mo_ta" />
                         </group>
-                        <notebook>
-                            <page string="Báo cáo tiến độ">
-                                <field name="bao_cao_ids">
-                                    <tree editable="bottom">
-                                        <field name="ngay_bao_cao" />
-                                        <field name="tien_do" />
-                                        <field name="noi_dung" />
-                                        <field name="nguoi_bao_cao_id" options="{'no_create': True}" />
-                                    </tree>
-                                </field>
-                            </page>
-                        </notebook>
                     </sheet>
                 </form>
             </field>
@@ -80,7 +69,7 @@
                     <field name="ma_cv" />
                     <field name="ten_cv" />
                     <field name="trang_thai" />
-                    <field name="tien_do_hien_tai" />   <!-- Đã sửa -->
+                    <field name="tien_do_hien_tai" />
                     <field name="du_an_id" />
                     <templates>
                         <t t-name="kanban-box">

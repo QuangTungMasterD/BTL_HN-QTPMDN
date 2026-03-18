@@ -160,4 +160,6 @@ select:focus {
     border-radius: 4px;
 } */
 
-
+.o_progressbar_complete {
+    background-color: #3b82f6;
+}

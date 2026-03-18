@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+
+        <!-- Server action: Gửi email nhắc công việc sắp hết hạn -->
+        <record id="action_server_task_deadline" model="ir.actions.server">
+            <field name="name">Gửi email nhắc công việc sắp hết hạn</field>
+            <field name="model_id" ref="model_cong_viec" />
+            <field name="state">code</field>
+            <field name="code">
+<![CDATA[
+template = env.ref('nquan_ly_cong_viec.email_template_task_deadline')
+for task in records:
+    # Chỉ gửi nếu có người nhận
+    if task.nhan_vien_phu_trach_ids or task.du_an_id.phu_trach_id:
+        template.send_mail(task.id, force_send=True)
+]]>
+            </field>
+        </record>
+
+        <!-- Automated action: Nhắc trước 1 ngày -->
+        <record id="automated_action_task_deadline_1day" model="base.automation">
+            <field name="name">Nhắc deadline công việc trước 1 ngày</field>
+            <field name="model_id" ref="model_cong_viec" />
+
+            <field name="trigger">on_time</field>
+            <field name="trg_date_id" ref="field_cong_viec__ngay_kt" />
+            <field name="trg_date_range">-1</field>
+            <field name="trg_date_range_type">day</field>
+
+            <field name="filter_pre_domain">
+                [('trang_thai', 'not in', ['hoan_thanh', 'huy'])]
+            </field>
+
+            <field name="action_server_id" ref="action_server_task_deadline" />
+            <field name="active">True</field>
+        </record>
+
+        <!-- (Tuỳ chọn) Nhắc trước 3 ngày -->
+        <record id="automated_action_task_deadline_3day" model="base.automation">
+            <field name="name">Nhắc deadline công việc trước 3 ngày</field>
+            <field name="model_id" ref="model_cong_viec" />
+
+            <field name="trigger">on_time</field>
+            <field name="trg_date_id" ref="field_cong_viec__ngay_kt" />
+            <field name="trg_date_range">-3</field>
+            <field name="trg_date_range_type">day</field>
+
+            <field name="filter_pre_domain">
+                [('trang_thai', 'not in', ['hoan_thanh', 'huy'])]
+            </field>
+
+            <field name="action_server_id" ref="action_server_task_deadline" />
+            <field name="active">True</field>
+        </record>
+
+    </data>
+</odoo>
