@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+
+        <!-- Server action: Cập nhật trạng thái công việc theo tiến độ -->
+        <record id="action_server_update_task_status" model="ir.actions.server">
+            <field name="name">Cập nhật trạng thái công việc theo tiến độ</field>
+            <field name="model_id" ref="model_cong_viec"/>
+            <field name="state">code</field>
+            <field name="code">
+<![CDATA[
+for task in records:
+    if task.tien_do_hien_tai == 100 and task.trang_thai != 'hoan_thanh':
+        task.write({'trang_thai': 'hoan_thanh'})
+    elif task.tien_do_hien_tai < 100 and task.trang_thai == 'hoan_thanh':
+        task.write({'trang_thai': 'dang_lam'})
+]]>
+            </field>
+        </record>
+
+        <!-- Automated action: Khi tiến độ công việc thay đổi -->
+        <record id="automated_action_update_task_status_on_progress_change" model="base.automation">
+            <field name="name">Cập nhật trạng thái công việc khi tiến độ thay đổi</field>
+            <field name="model_id" ref="model_cong_viec"/>
+            <field name="trigger">on_write</field>
+            <!-- Chỉ kích hoạt khi trường tien_do_hien_tai thay đổi (cần Odoo >=15) -->
+            <field name="trigger_field_ids" eval="[(4, ref('field_cong_viec__tien_do_hien_tai'))]"/>
+            <field name="action_server_id" ref="action_server_update_task_status"/>
+            <field name="active">True</field>
+        </record>
+
+    </data>
+</odoo>

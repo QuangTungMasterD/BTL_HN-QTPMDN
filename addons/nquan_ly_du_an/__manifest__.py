@@ -30,8 +30,8 @@
         'views/du_an_dashboard.xml',
         'data/automation/01_create_tasks_on_project.xml',
         'data/automation/02_assign_project_manager.xml',
-        'data/templates/email_deadline_project_templates.xml',
         'data/automation/project_deadline_reminder.xml',
+        'data/templates/email_deadline_project_templates.xml',
         'views/menu.xml',
     ],
 
