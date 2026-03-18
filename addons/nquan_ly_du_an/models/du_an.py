@@ -96,4 +96,10 @@ class DuAn(models.Model):
             if rec.ngay_bd and rec.ngay_kt_thuc_te and rec.ngay_kt_thuc_te < rec.ngay_bd:
                 raise ValidationError("Ngày kết thúc phải lớn hơn hoặc bằng ngày bắt đầu")
     
-    
+    def action_confirm_completion(self):
+        for project in self:
+            if project.trang_thai == 'cho_xac_nhan':
+                project.trang_thai = 'hoan_thanh'
+                # Gọi server action gửi thông báo (hoặc gửi trực tiếp)
+                self.env['ir.actions.server'].browse(ref('nquan_ly_cong_viec.server_action_notify_project_completed')).run([project.id])
+        return True

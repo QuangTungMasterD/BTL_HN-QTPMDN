@@ -30,7 +30,8 @@
         'views/cong_viec_dashboard.xml',
         # 'views/kinh_phi_du_kien.xml',
         # 'views/nhan_vien_tham_gia.xml',
-        'data/project_automation.xml',
+        # 'data/project_automation.xml',
+        # 'data/automation_data.xml',
         'views/menu.xml',
     ],
 

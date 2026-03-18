@@ -75,3 +75,14 @@ class CongViec(models.Model):
             if rec.ngay_bd and rec.ngay_kt and rec.ngay_kt < rec.ngay_bd:
                 raise ValidationError("Ngày kết thúc phải lớn hơn hoặc bằng ngày bắt đầu")
     
+    def action_confirm_completion(self):
+        for task in self:
+            if task.trang_thai == 'cho_xac_nhan':
+                task.trang_thai = 'hoan_thanh'
+                if task.du_an_id:
+                    task.du_an_id._tinh_tien_do()
+                    # Kiểm tra nếu tất cả công việc của dự án đã hoàn thành
+                    project = task.du_an_id
+                    if project.tong_so_cong_viec > 0 and project.so_cong_viec_hoan_thanh == project.tong_so_cong_viec:
+                        project.write({'trang_thai': 'cho_xac_nhan'})
+        return True

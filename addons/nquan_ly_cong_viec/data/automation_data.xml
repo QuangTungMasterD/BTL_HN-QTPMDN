@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+
+        <!-- Server Action: Tạo activity nhắc nhở deadline công việc -->
+        <record id="action_server_notify_task_deadline" model="ir.actions.server">
+            <field name="name">Tạo activity nhắc deadline công việc</field>
+            <field name="model_id" ref="model_cong_viec"/>
+            <field name="state">code</field>
+            <field name="code">
+# Code tạo activity cho từng công việc được trigger
+for task in records:
+    # 1. Tạo activity cho từng nhân viên phụ trách công việc
+    for nv in task.nhan_vien_phu_trach_ids:
+        if not nv.user_id:
+            continue
+        env['mail.activity'].create({
+            'res_id': task.id,
+            'res_model': 'cong_viec',
+            'activity_type_id': env.ref('mail.mail_activity_type_reminder').id,
+            'summary': 'Công việc sắp đến hạn',
+            'note': f'Công việc "{task.ten_cv}" (mã {task.ma_cv}) có hạn hoàn thành vào {task.ngay_kt}. Vui lòng cập nhật tiến độ.',
+            'user_id': nv.user_id.id,
+            'date_deadline': task.ngay_kt,
+        })
+
+    # 2. Tạo activity cho nhân viên phụ trách dự án (nếu khác với những người trên)
+    if task.du_an_id and task.du_an_id.phu_trach_id and task.du_an_id.phu_trach_id.user_id:
+        pm_user = task.du_an_id.phu_trach_id.user_id
+        # (Có thể kiểm tra trùng nếu muốn, nhưng tạo thêm một activity riêng với nội dung khác)
+        env['mail.activity'].create({
+            'res_id': task.id,
+            'res_model': 'cong_viec',
+            'activity_type_id': env.ref('mail.mail_activity_type_reminder').id,
+            'summary': 'Công việc trong dự án sắp đến hạn',
+            'note': f'Công việc "{task.ten_cv}" thuộc dự án "{task.du_an_id.name}" sắp hết hạn vào {task.ngay_kt}. Hãy theo dõi tiến độ.',
+            'user_id': pm_user.id,
+            'date_deadline': task.ngay_kt,
+        })
+            </field>
+        </record>
+
+        <!-- Automated Action: Kích hoạt dựa trên ngày hết hạn (ngay_kt) -->
+        <record id="automated_action_task_deadline_reminder" model="base.automation">
+            <field name="name">Nhắc deadline công việc (1 ngày trước)</field>
+            <field name="model_id" ref="model_cong_viec"/>
+            <field name="trigger">time</field>                      <!-- On Time trigger -->
+            <field name="trg_date_field">ngay_kt</field>           <!-- Trường ngày làm mốc -->
+            <field name="trg_date_range">-1</field>                 <!-- -1 ngày (trước 1 ngày) -->
+            <field name="trg_date_range_type">days</field>          <!-- Đơn vị: ngày -->
+            <field name="filter_pre_domain">[('trang_thai','!=','hoan_thanh')]</field> <!-- Chỉ công việc chưa hoàn thành -->
+            <field name="state">code</field>
+            <field name="action_server_id" ref="action_server_notify_task_deadline"/>
+            <field name="active">True</field>
+        </record>
+
+    </data>
+</odoo>
