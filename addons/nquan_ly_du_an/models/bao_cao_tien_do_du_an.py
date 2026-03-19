@@ -4,6 +4,7 @@ from odoo.exceptions import ValidationError
 class BaoCaoTienDoDuAn(models.Model):
     _name = 'bao_cao_tien_do_du_an'
     _description = 'Báo cáo tiến độ dự án'
+    _rec_name = "du_an_id"
 
     du_an_id = fields.Many2one(
         'du_an',

@@ -53,24 +53,6 @@ class DuAn(models.Model):
         ('ma_du_an_unique', 'unique(ma_du_an)', 'Mã dự án đã tồn tại!')
     ]
 
-
-    # def _tinh_tien_do(self):
-    #     for duan in self:
-    #         try:
-    #             cong_viecs = self.env['cong_viec'].search([('du_an_id', '=', duan.id)])
-    #             tong = len(cong_viecs)
-    #             hoan_thanh = len(cong_viecs.filtered(lambda cv: cv.trang_thai == 'hoan_thanh'))
-    #             print(hoan_thanh)
-    #         except KeyError:
-    #             tong = 0
-    #             hoan_thanh = 0
-    #         duan.tong_so_cong_viec = tong
-    #         duan.so_cong_viec_hoan_thanh = hoan_thanh
-    #         if tong > 0:
-    #             duan.tien_do_phan_tram = (hoan_thanh / tong) * 100
-    #         else:
-    #             duan.tien_do_phan_tram = 0.0
-
     @api.constrains('ngay_bd', 'ngay_kt_du_kien')
     def _check_ngay_du_kien(self):
         for rec in self:

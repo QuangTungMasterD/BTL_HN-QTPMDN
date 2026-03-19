@@ -3,6 +3,7 @@ from odoo import models, fields
 class TuongTac(models.Model):
     _name = 'tuong_tac'
     _description = "Tương tác với khách hàng"
+    _rec_name = "khach_hang_id"
 
     khach_hang_id = fields.Many2one('khach_hang', string="Khách hàng", required=True)
     nhan_vien_id = fields.Many2one('nhan_vien', string="Nhân viên", required=True)

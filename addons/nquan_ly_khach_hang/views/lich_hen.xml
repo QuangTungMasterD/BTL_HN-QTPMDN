@@ -31,6 +31,7 @@
                     <field name="khach_hang_id"/>
                     <field name="nhan_vien_id"/>
                     <field name="thoi_gian"/>
+                    <field name="dia_diem"/>
                     <field name="trang_thai"/>
                 </tree>
             </field>
@@ -43,6 +44,7 @@
                     <field name="khach_hang_id"/>
                     <field name="nhan_vien_id"/>
                     <field name="thoi_gian"/>
+                    <field name="dia_diem"/>
                     <field name="trang_thai"/>
                 </search>
             </field>
@@ -56,4 +58,3 @@
         </record>
     </data>
 </odoo>
-
