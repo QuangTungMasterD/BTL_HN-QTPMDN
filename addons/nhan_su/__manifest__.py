@@ -20,20 +20,23 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base'],
-    # 'depends': ['base', 'hr'],
+    # 'depends': ['base'],
+    'depends': ['base', 'hr'],
 
     # always loaded
     'data': [
-        'security/ir.model.access.csv',
-        'views/chuc_vu.xml',
-        'views/don_vi.xml',
-        'views/nhan_vien.xml',
-        'views/nhan_su_dashboard.xml',
-        'views/menu.xml',
+        'views/hr_employee_views.xml',
+        # 'security/ir.model.access.csv',
+        # 'views/chuc_vu.xml',
+        # 'views/don_vi.xml',
+        # 'views/nhan_vien.xml',
+        # 'views/nhan_su_dashboard.xml',
+        # 'views/menu.xml',
     ],
     
     'demo': [
         'demo/demo_nhan_su.xml',
     ],
+
+    'pre_init_hook': 'pre_init_hook',
 }

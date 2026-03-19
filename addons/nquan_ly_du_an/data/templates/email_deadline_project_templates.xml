@@ -7,7 +7,7 @@
             <field name="model_id" ref="model_du_an"/>
             <field name="subject">🔔 Dự án {{ object.name }} sắp đến hạn</field>
             <field name="email_from">{{ user.email }}</field>
-            <field name="email_to">{{ object.phu_trach_id.email or '' }}</field>
+            <field name="email_to">{{ object.phu_trach_id.work_email or '' }}</field>
             <field name="reply_to">{{ user.email }}</field>
             <field name="body_html" type="html">
                 <div style="font-family: Arial, sans-serif;">

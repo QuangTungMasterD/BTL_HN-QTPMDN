@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_employee_form_inherit_nhan_su" model="ir.ui.view">
+        <field name="name">hr.employee.form.inherit.nhan_su</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="arch" type="xml">
+            <!-- Thêm mã nhân viên sau tên -->
+            <field name="name" position="after">
+                <field name="ma_dinh_danh" placeholder="Mã nhân viên" required="1"/>
+            </field>
+
+            <!-- Thêm quê quán, ngày vào làm, trạng thái vào cuối tab Private Information -->
+            <xpath expr="//page[@name='personal_information']" position="inside">
+                <group string="Thông tin bổ sung">
+                    <field name="que_quan"/>
+                    <field name="ngay_vao_lam"/>
+                    <field name="trang_thai"/>
+                </group>
+            </xpath>
+
+            <!-- Thêm tuổi sau ngày sinh -->
+            <field name="birthday" position="after">
+                <field name="tuoi"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="view_employee_tree_inherit_nhan_su" model="ir.ui.view">
+        <field name="name">hr.employee.tree.inherit.nhan_su</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_tree"/>
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="ma_dinh_danh"/>
+                <field name="trang_thai"/>
+            </field>
+        </field>
+    </record>
+</odoo>

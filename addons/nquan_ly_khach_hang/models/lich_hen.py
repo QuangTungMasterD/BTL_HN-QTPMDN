@@ -6,7 +6,7 @@ class LichHen(models.Model):
     _rec_name = "khach_hang_id"
 
     khach_hang_id = fields.Many2one('khach_hang', string="Khách hàng", required=True)
-    nhan_vien_id = fields.Many2one('nhan_vien', string="Nhân viên phụ trách", required=True)
+    nhan_vien_id = fields.Many2one('hr.employee', string="Nhân viên phụ trách", required=True)
     thoi_gian = fields.Datetime(string="Thời gian hẹn", required=True)
     dia_diem = fields.Char(string="Địa điểm")
     noi_dung = fields.Text(string="Nội dung dự kiến")

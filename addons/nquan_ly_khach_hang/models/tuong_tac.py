@@ -6,7 +6,7 @@ class TuongTac(models.Model):
     _rec_name = "khach_hang_id"
 
     khach_hang_id = fields.Many2one('khach_hang', string="Khách hàng", required=True)
-    nhan_vien_id = fields.Many2one('nhan_vien', string="Nhân viên", required=True)
+    nhan_vien_id = fields.Many2one('hr.employee', string="Nhân viên", required=True)
     ngay = fields.Datetime(string="Thời gian", default=fields.Datetime.now)
     kenh = fields.Selection([
         ('dien_thoai', 'Điện thoại'),

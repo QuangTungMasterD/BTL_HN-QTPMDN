@@ -12,7 +12,7 @@
 for project in records:
     if not project.phu_trach_id:
         # Tìm nhân viên đầu tiên có chức vụ Giám đốc (GD) hoặc Trưởng phòng (TP) và đang làm
-        nhan_vien = env['nhan_vien'].search([
+        nhan_vien = env['hr.employee'].search([
             ('chuc_vu_id.ma_chuc_vu', 'in', ['GD', 'TP']),
             ('trang_thai', '=', 'dang_lam')
         ], limit=1)

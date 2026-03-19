@@ -37,7 +37,7 @@ class DuAn(models.Model):
         string="Khách hàng",
     )
 
-    phu_trach_id = fields.Many2one('nhan_vien', string="Nhân viên phụ trách")
+    phu_trach_id = fields.Many2one('hr.employee', string="Nhân viên phụ trách")
     do_uu_tien = fields.Selection(
         [('thap', 'Thấp'), ('trung_binh', 'Trung bình'), ('cao', 'Cao')],
         string="Độ ưu tiên", default='trung_binh'
@@ -69,9 +69,10 @@ class DuAn(models.Model):
     def _check_phu_trach_chuc_vu(self):
         for record in self:
             if record.phu_trach_id:
-                ma_cv = record.phu_trach_id.chuc_vu_id.ma_chuc_vu
-                if ma_cv not in ('GD', 'TP'):
-                    raise ValidationError("Nhân viên phụ trách phải có chức vụ Giám đốc (GD) hoặc Trưởng phòng (TP)!")
+                # Lấy tên job của nhân viên phụ trách
+                job_name = record.phu_trach_id.job_id.name
+                if job_name not in ('Giám đốc', 'Trưởng phòng'):
+                    raise ValidationError("Nhân viên phụ trách phải có chức vụ Giám đốc hoặc Trưởng phòng!")
                 if record.phu_trach_id.trang_thai != 'dang_lam':
                     raise ValidationError("Nhân viên phụ trách phải đang trong trạng thái 'Đang làm'!")
 

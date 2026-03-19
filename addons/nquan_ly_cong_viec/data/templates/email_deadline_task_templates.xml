@@ -7,10 +7,10 @@
             <field name="subject">🔔 Công việc {{ object.ten_cv }} sắp đến hạn</field>
             <field name="email_from">{{ user.email or '' }}</field>
             <field name="email_to">
-                {{ ','.join(object.nhan_vien_phu_trach_ids.mapped('email')) }}
+                {{ ','.join(object.nhan_vien_phu_trach_ids.mapped('work_email')) }}
             </field>
             <field name="email_cc">
-                {{ object.du_an_id.phu_trach_id.email or '' }}
+                {{ object.du_an_id.phu_trach_id.work_email or '' }}
             </field>
             <field name="reply_to">{{ user.email }}</field>
             <field name="body_html" type="html">

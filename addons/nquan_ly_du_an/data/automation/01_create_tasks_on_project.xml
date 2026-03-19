@@ -43,7 +43,6 @@ for project in records:
             'ngay_kt': tmpl.get('ngay_kt'),
             'du_an_id': project.id,
             'trang_thai': 'moi',
-            'nhan_vien_phu_trach_ids': [(4, project.phu_trach_id.id)] if project.phu_trach_id else [],
         })
 ]]>
             </field>

@@ -26,7 +26,7 @@ class BaoCaoTienDoDuAn(models.Model):
     noi_dung = fields.Text(string='Nội dung báo cáo')
 
     nguoi_bao_cao_id = fields.Many2one(
-        'nhan_vien',
+        'hr.employee',
         string='Người báo cáo',
         required=True,
     )

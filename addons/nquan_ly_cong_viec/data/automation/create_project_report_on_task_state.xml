@@ -13,21 +13,18 @@ for task in records:
     if not task.du_an_id:
         continue
     project = task.du_an_id
-    # Tính tổng số công việc và số công việc hoàn thành của dự án
     tasks = env['cong_viec'].search([('du_an_id', '=', project.id)])
     total = len(tasks)
     completed = len(tasks.filtered(lambda t: t.trang_thai == 'hoan_thanh'))
     progress = (completed / total * 100) if total > 0 else 0.0
 
-    # Xác định người báo cáo (ưu tiên người phụ trách dự án, nếu không có thì dùng người phụ trách công việc hoặc người dùng hiện tại)
     nguoi_bao_cao = project.phu_trach_id
-    # Fallback: lấy nhân viên đầu tiên trong hệ thống (đảm bảo không lỗi required)
     if not nguoi_bao_cao:
-        nguoi_bao_cao = env['nhan_vien'].search([], limit=1)
+        # Tìm bất kỳ nhân viên nào (fallback)
+        nguoi_bao_cao = env['hr.employee'].search([], limit=1)
     if not nguoi_bao_cao:
-        continue  # không có nhân viên nào thì bỏ qua
+        continue
 
-    # Tạo báo cáo tiến độ dự án mới
     env['bao_cao_tien_do_du_an'].create({
         'du_an_id': project.id,
         'ngay_bao_cao': datetime.date.today(),

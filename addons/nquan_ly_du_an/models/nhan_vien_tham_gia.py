@@ -12,7 +12,7 @@ class NhanVienThamGia(models.Model):
     )
 
     nhan_vien_id = fields.Many2one(
-        'nhan_vien',
+        'hr.employee',
         string='Nhân viên',
         required=True
     )

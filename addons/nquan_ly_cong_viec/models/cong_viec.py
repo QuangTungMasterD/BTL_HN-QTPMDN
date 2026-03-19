@@ -35,7 +35,7 @@ class CongViec(models.Model):
     )
 
     nhan_vien_phu_trach_ids = fields.Many2many(
-        'nhan_vien',
+        'hr.employee',
         string="Nhân viên phụ trách",
         domain="[('id', 'in', available_nhan_vien_ids)]"
     )
@@ -56,7 +56,7 @@ class CongViec(models.Model):
     )
 
     available_nhan_vien_ids = fields.Many2many(
-        'nhan_vien',
+        'hr.employee',
         compute='_compute_available_nhan_vien_ids',
         string='Nhân viên có thể phụ trách'
     )
@@ -98,12 +98,11 @@ class CongViec(models.Model):
     def _check_nhan_vien_thuoc_du_an(self):
         for record in self:
             if record.du_an_id and record.nhan_vien_phu_trach_ids:
-                # Lấy danh sách nhân viên được phép (tham gia dự án)
                 allowed_nhan_vien = record.du_an_id.nhan_vien_tham_gia_ids.mapped('nhan_vien_id')
                 for nv in record.nhan_vien_phu_trach_ids:
                     if nv not in allowed_nhan_vien:
                         raise ValidationError(
-                            f"Nhân viên {nv.ho_va_ten} không nằm trong danh sách nhân viên tham gia dự án {record.du_an_id.name}!"
+                            f"Nhân viên {nv.name} không nằm trong danh sách nhân viên tham gia dự án {record.du_an_id.name}!"
                         )
                     
     @api.depends('ma_cv', 'ten_cv')

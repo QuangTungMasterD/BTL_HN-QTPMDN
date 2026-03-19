@@ -27,14 +27,14 @@ class BaoCaoTienDoCongViec(models.Model):
     noi_dung = fields.Text(string='Nội dung báo cáo')
 
     nguoi_bao_cao_id = fields.Many2one(
-        'nhan_vien',
+        'hr.employee',
         string='Người báo cáo',
         required=True,
         domain="[('id', 'in', available_nhan_vien_cv_ids)]"
     )
 
     available_nhan_vien_cv_ids = fields.Many2many(
-        'nhan_vien',
+        'hr.employee',
         compute='_compute_available_nhan_vien_cv_ids',
         string='Nhân viên được phép báo cáo'
     )
