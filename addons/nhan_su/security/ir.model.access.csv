@@ -1,4 +1,9 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_nhan_vien,nhan_vien.nhan_vien,model_nhan_vien,base.group_user,1,1,1,1
-access_don_vi,don_vi.don_vi,model_don_vi,base.group_user,1,1,1,1
-access_chuc_vu,chuc_vu.chuc_vu,model_chuc_vu,base.group_user,1,1,1,1
+# NHÂN VIÊN
+access_nhan_vien_user,nhan_vien_user,model_nhan_vien,nhan_su.group_nhan_vien,0,0,0,0
+access_don_vi_user,don_vi_user,model_don_vi,nhan_su.group_nhan_vien,1,0,0,0
+access_chuc_vu_user,chuc_vu_user,model_chuc_vu,nhan_su.group_nhan_vien,1,0,0,0
+# MANAGER
+access_nhan_vien_manager,nhan_vien_manager,model_nhan_vien,nhan_su.group_manager,1,1,1,1
+access_don_vi_manager,don_vi_manager,model_don_vi,nhan_su.group_manager,1,1,1,1
+access_chuc_vu_manager,chuc_vu_manager,model_chuc_vu,nhan_su.group_manager,1,1,1,1

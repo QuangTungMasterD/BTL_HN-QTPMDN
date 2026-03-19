@@ -86,3 +86,17 @@ class NhanVien(models.Model):
         for record in self:
             if record.tuoi < 18:
                 raise ValidationError("Tuổi không được bé hơn 18")
+            
+    @api.model
+    def create(self, vals):
+        if not vals.get('user_id') and vals.get('email'):
+            user = self.env['res.users'].create({
+                'name': vals.get('ho_va_ten') or vals.get('ten'),
+                'login': vals.get('email'),
+                'email': vals.get('email'),
+                'password': '123456',
+                'groups_id': [(6, 0, [self.env.ref('nhan_su.group_nhan_vien').id])]
+            })
+            vals['user_id'] = user.id
+
+        return super(NhanVien, self).create(vals)
