@@ -32,6 +32,7 @@
         'data/automation/02_assign_project_manager.xml',
         'data/automation/project_deadline_reminder.xml',
         'data/templates/email_deadline_project_templates.xml',
+        'data/templates/create_appointment_on_state_project.xml',
         'views/menu.xml',
     ],
 

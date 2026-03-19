@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+        <!-- Server action: Tạo lịch hẹn khi dự án hoàn thành -->
+        <record id="action_server_create_appointment_on_project_complete" model="ir.actions.server">
+            <field name="name">Tạo lịch hẹn chúc mừng hoàn thành dự án</field>
+            <field name="model_id" ref="model_du_an"/>
+            <field name="state">code</field>
+            <field name="code">
+<![CDATA[
+for project in records:
+    if project.khach_hang_id:
+        # Tạo lịch hẹn với khách hàng
+        env['lich_hen'].create({
+            'khach_hang_id': project.khach_hang_id.id,
+            'nhan_vien_id': project.phu_trach_id.id if project.phu_trach_id else False,
+            'thoi_gian': fields.Datetime.now() + datetime.timedelta(days=7), # sau 1 tuần
+            'dia_diem': 'Văn phòng công ty',
+            'noi_dung': f'Tổng kết và bàn giao dự án {project.name}',
+            'trang_thai': 'du_kien',
+        })
+]]>
+            </field>
+        </record>
+
+        <!-- Automated action: Khi dự án chuyển sang hoàn thành -->
+        <record id="automated_action_create_appointment_on_project_complete" model="base.automation">
+            <field name="name">Tạo lịch hẹn khi dự án hoàn thành</field>
+            <field name="model_id" ref="model_du_an"/>
+            <field name="trigger">on_write</field>
+            <field name="filter_pre_domain">[('trang_thai', '!=', 'hoan_thanh')]</field>
+            <field name="filter_post_domain">[('trang_thai', '=', 'hoan_thanh')]</field>
+            <field name="action_server_id" ref="action_server_create_appointment_on_project_complete"/>
+            <field name="active">True</field>
+        </record>
+    </data>
+</odoo>

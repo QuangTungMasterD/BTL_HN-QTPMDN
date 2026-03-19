@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Kế thừa form view: thêm trường tiến độ vào group thông tin chung -->
+    <record id="view_du_an_form_inherit" model="ir.ui.view">
+        <field name="name">du_an.form.inherit</field>
+        <field name="model">du_an</field>
+        <field name="inherit_id" ref="nquan_ly_du_an.view_du_an_form"/>
+        <field name="arch" type="xml">
+            <field name="trang_thai" position="after">
+                <field name="tien_do_phan_tram" widget="progressbar"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="view_du_an_tree_inherit" model="ir.ui.view">
+        <field name="name">du_an.tree.inherit</field>
+        <field name="model">du_an</field>
+        <field name="inherit_id" ref="nquan_ly_du_an.view_du_an_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='trang_thai']" position="after">
+                <field name="tien_do_phan_tram" widget="progressbar"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_du_an_kanban_inherit" model="ir.ui.view">
+        <field name="name">du_an.kanban.inherit</field>
+        <field name="model">du_an</field>
+        <field name="inherit_id" ref="nquan_ly_du_an.view_du_an_kanban"/>
+        <field name="arch" type="xml">
+            <xpath expr="//kanban" position="inside">
+                <field name="tien_do_phan_tram"/>
+            </xpath>
+
+            <xpath expr="//t[@t-name='kanban-box']//div[@class='o_kanban_record_body']" position="inside">
+                <div style="display: flex;">
+                    <div class="progress" style="height: 14px; display: flex; flex: 1;">
+                        <div class="progress-bar" role="progressbar"
+                            t-attf-style="width: {{ record.tien_do_phan_tram.raw_value }}%;"
+                            t-att-aria-valuenow="record.tien_do_phan_tram.raw_value"
+                            aria-valuemin="0" aria-valuemax="100">
+                        </div>
+                    </div>
+                    <div style="display: flex; padding-left: 4px; font-size: 12px;"><field name="tien_do_phan_tram"/>%</div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>

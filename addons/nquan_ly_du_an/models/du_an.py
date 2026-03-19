@@ -5,7 +5,7 @@ from odoo import api
 class DuAn(models.Model):
     _name = 'du_an'
     _description = 'Dự án'
-
+    
     _rec_name = 'display_name'
     display_name = fields.Char(string="Tên hiển thị", compute='_compute_display_name', store=True)
 
@@ -48,43 +48,28 @@ class DuAn(models.Model):
         'du_an_id',
         string='Nhân viên tham gia'
     )
-    tong_so_cong_viec = fields.Integer(
-        string='Tổng số công việc',
-        compute='_tinh_tien_do',
-        store=True
-    )
-    so_cong_viec_hoan_thanh = fields.Integer(
-        string='Số công việc hoàn thành',
-        compute='_tinh_tien_do',
-        store=True
-    )
-    tien_do_phan_tram = fields.Float(
-        string='Tiến độ (%)',
-        compute='_tinh_tien_do',
-        store=True,
-        digits=(3,2)
-    )
 
     _sql_constraints = [
         ('ma_du_an_unique', 'unique(ma_du_an)', 'Mã dự án đã tồn tại!')
     ]
 
-    def _tinh_tien_do(self):
-        for duan in self:
-            try:
-                cong_viecs = self.env['cong_viec'].search([('du_an_id', '=', duan.id)])
-                tong = len(cong_viecs)
-                hoan_thanh = len(cong_viecs.filtered(lambda cv: cv.trang_thai == 'hoan_thanh'))
-                print(hoan_thanh)
-            except KeyError:
-                tong = 0
-                hoan_thanh = 0
-            duan.tong_so_cong_viec = tong
-            duan.so_cong_viec_hoan_thanh = hoan_thanh
-            if tong > 0:
-                duan.tien_do_phan_tram = (hoan_thanh / tong) * 100
-            else:
-                duan.tien_do_phan_tram = 0.0
+
+    # def _tinh_tien_do(self):
+    #     for duan in self:
+    #         try:
+    #             cong_viecs = self.env['cong_viec'].search([('du_an_id', '=', duan.id)])
+    #             tong = len(cong_viecs)
+    #             hoan_thanh = len(cong_viecs.filtered(lambda cv: cv.trang_thai == 'hoan_thanh'))
+    #             print(hoan_thanh)
+    #         except KeyError:
+    #             tong = 0
+    #             hoan_thanh = 0
+    #         duan.tong_so_cong_viec = tong
+    #         duan.so_cong_viec_hoan_thanh = hoan_thanh
+    #         if tong > 0:
+    #             duan.tien_do_phan_tram = (hoan_thanh / tong) * 100
+    #         else:
+    #             duan.tien_do_phan_tram = 0.0
 
     @api.constrains('ngay_bd', 'ngay_kt_du_kien')
     def _check_ngay_du_kien(self):
@@ -97,14 +82,6 @@ class DuAn(models.Model):
         for rec in self:
             if rec.ngay_bd and rec.ngay_kt_thuc_te and rec.ngay_kt_thuc_te < rec.ngay_bd:
                 raise ValidationError("Ngày kết thúc phải lớn hơn hoặc bằng ngày bắt đầu")
-    
-    def action_confirm_completion(self):
-        for project in self:
-            if project.trang_thai == 'cho_xac_nhan':
-                project.trang_thai = 'hoan_thanh'
-                # Gọi server action gửi thông báo (hoặc gửi trực tiếp)
-                self.env['ir.actions.server'].browse(ref('nquan_ly_cong_viec.server_action_notify_project_completed')).run([project.id])
-        return True
     
     @api.constrains('phu_trach_id')
     def _check_phu_trach_chuc_vu(self):

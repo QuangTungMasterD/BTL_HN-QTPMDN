@@ -23,41 +23,7 @@
                             <field name="ngay_kt_du_kien" />
                             <field name="ngay_kt_thuc_te" />
                         </group>
-                        <!-- <notebook>
-                            <page string="Công việc">
-                                <field name="cong_viec_ids">
-                                    <tree editable="bottom">
-                                        <field name="ma_cv"/>
-                                        <field name="ten_cv"/>
-                                        <field name="phu_trach_id"/>
-                                        <field name="trang_thai"/>
-                                        <field name="ngay_bd"/>
-                                        <field name="ngay_kt_du_kien"/>
-                                    </tree>
-                                </field>
-                            </page>
-                            <page string="Kinh phí dự kiến">
-                                <field name="kinh_phi_ids">
-                                    <tree editable="bottom">
-                                        <field name="hang_muc"/>
-                                        <field name="so_tien"/>
-                                        <field name="ghi_chu"/>
-                                    </tree>
-                                </field>
-                            </page>
-                        </notebook> -->
                     </sheet>
-
-                    <!-- <notebook>
-                        <page string="Nhân viên tham gia">
-                            <field name="nhan_vien_tham_gia_ids">
-                                <tree editable="bottom">
-                                    <field name="nhan_vien_id"/>
-                                    <field name="vai_tro"/>
-                                </tree>
-                            </field>
-                        </page>
-                    </notebook> -->
                 </form>
             </field>
         </record>
@@ -75,7 +41,7 @@
                     <field name="ngay_bd" />
                     <field name="ngay_kt_du_kien" />
                     <field name="ngay_kt_thuc_te" />
-                    <field name="tien_do_phan_tram" widget="progressbar" />
+                    <!-- <field name="tien_do_phan_tram" widget="progressbar" /> -->
                 </tree>
             </field>
         </record>
@@ -107,7 +73,7 @@
                     <field name="khach_hang_id" />
                     <field name="phu_trach_id" />
                     <field name="trang_thai" />
-                    <field name="tien_do_phan_tram" />
+                    <!-- <field name="tien_do_phan_tram" /> -->
                     <templates>
                         <t t-name="kanban-box">
                             <div class="oe_kanban_global_click">
@@ -122,8 +88,8 @@
                                     <div>Khách hàng: <field name="khach_hang_id" /></div>
                                     <div>Phụ trách: <field name="phu_trach_id" /></div>
                                     <div>Trạng thái: <field name="trang_thai" /></div>
-                                    <div>Tiến độ: <field name="tien_do_phan_tram"
-                                            widget="progressbar" /></div>
+                                    <!-- <div>Tiến độ: <field name="tien_do_phan_tram" -->
+                                            <!-- widget="progressbar" /></div> -->
                                 </div>
                             </div>
                         </t>

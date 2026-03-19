@@ -31,6 +31,7 @@
         'data/automation/task_deadline_reminder.xml',
         'data/automation/update_task_status_from_progress.xml',
         'data/automation/create_project_report_on_task_state.xml',
+        'views/du_an_inherit.xml',
         'views/menu.xml',
     ],
 

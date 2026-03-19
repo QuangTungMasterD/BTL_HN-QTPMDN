@@ -164,6 +164,14 @@ select:focus {
     background-color: #3b82f6;
 }
 
+.progress-bar {
+    background-color: #3b82f6;
+}
+
+.o_progress {
+    background-color: #3b82f6;
+}
+
 .o_progressbar_complete {
     background-color: #3b82f6;
 }

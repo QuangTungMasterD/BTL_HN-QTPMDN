@@ -31,7 +31,7 @@
         <field name="ngay_kt_du_kien">2026-09-30</field>
         <field name="trang_thai">moi</field>
         <field name="khach_hang_id" ref="nquan_ly_khach_hang.khach_hang_khanh"/>
-        <field name="phu_trach_id" ref="nhan_su.nhan_vien_khanh"/>
+        <field name="phu_trach_id" ref="nhan_su.nhan_vien_phu"/>
         <field name="do_uu_tien">thap</field>
     </record>
 
@@ -63,6 +63,11 @@
         <field name="du_an_id" ref="du_an_1"/>
         <field name="nhan_vien_id" ref="nhan_su.nhan_vien_khanh"/>
         <field name="vai_tro">Developer</field>
+    </record>
+        <record id="nhan_vien_tham_gia_4" model="nhan_vien_tham_gia">
+        <field name="du_an_id" ref="du_an_2"/>
+        <field name="nhan_vien_id" ref="nhan_su.nhan_vien_phu"/>
+        <field name="vai_tro">Phụ trách</field>
     </record>
 
     <!-- Báo cáo tiến độ dự án (đã sửa) -->
