@@ -1,4 +1,5 @@
 from odoo import models, fields, api
+from odoo.exceptions import ValidationError
 
 class DuAn(models.Model):
     _inherit = 'du_an'
@@ -34,4 +35,10 @@ class DuAn(models.Model):
             du_an.tong_so_cong_viec = tong
             du_an.so_cong_viec_hoan_thanh = hoan_thanh
             du_an.tien_do_phan_tram = (hoan_thanh / tong * 100) if tong > 0 else 0.0
+
+    @api.constrains('trang_thai', 'tien_do_phan_tram')
+    def _check_hoan_thanh_tien_do(self):
+        for record in self:
+            if record.trang_thai == 'hoan_thanh' and record.tien_do_phan_tram != 100.0:
+                raise ValidationError("Không thể đánh dấu dự án hoàn thành khi tiến độ chưa đạt 100%!")
             
