@@ -2,7 +2,7 @@
 <odoo>
     <data noupdate="0">
 
-        <!-- Server action: Gán nhân viên phụ trách mặc định cho dự án -->
+        <!-- Server action: Gán nhân viên phụ trách mặc định cho dự án, ưu tiên người có ít dự án nhất -->
         <record id="action_server_assign_default_project_manager" model="ir.actions.server">
             <field name="name">Gán nhân viên phụ trách mặc định cho dự án</field>
             <field name="model_id" ref="model_du_an"/>
@@ -11,13 +11,27 @@
 <![CDATA[
 for project in records:
     if not project.phu_trach_id:
-        # Tìm nhân viên đầu tiên có chức vụ Giám đốc (GD) hoặc Trưởng phòng (TP) và đang làm
-        nhan_vien = env['hr.employee'].search([
-            ('chuc_vu_id.ma_chuc_vu', 'in', ['GD', 'TP']),
-            ('trang_thai', '=', 'dang_lam')
-        ], limit=1)
-        if nhan_vien:
-            project.write({'phu_trach_id': nhan_vien.id})
+        # Tìm tất cả nhân viên có chức vụ Giám đốc hoặc Trưởng phòng và đang làm việc (active)
+        candidates = env['hr.employee'].search([
+            ('job_id.name', 'in', ['Giám đốc', 'Trưởng phòng']),
+            ('active', '=', True)
+        ])
+        if not candidates:
+            continue
+
+        # Tính số dự án hiện tại (chưa hoàn thành, chưa hủy) mà mỗi nhân viên đang phụ trách
+        domain_not_completed = [('trang_thai', 'not in', ['hoan_thanh', 'huy'])]
+        counts = {}
+        for emp in candidates:
+            count = env['du_an'].search_count([
+                ('phu_trach_id', '=', emp.id)
+            ] + domain_not_completed)
+            counts[emp.id] = count
+
+        # Sắp xếp nhân viên theo số lượng dự án tăng dần, chọn người đầu tiên
+        sorted_emps = sorted(candidates, key=lambda e: counts[e.id])
+        chosen = sorted_emps[0]
+        project.write({'phu_trach_id': chosen.id})
 ]]>
             </field>
         </record>

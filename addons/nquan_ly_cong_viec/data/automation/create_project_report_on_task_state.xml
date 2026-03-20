@@ -12,6 +12,8 @@
 for task in records:
     if not task.du_an_id:
         continue
+    if task.trang_thai == 'moi':
+        continue
     project = task.du_an_id
     tasks = env['cong_viec'].search([('du_an_id', '=', project.id)])
     total = len(tasks)
