@@ -1,6 +1,8 @@
 from odoo import models, fields
-from odoo.exceptions import ValidationError
+from odoo.exceptions import ValidationError, UserError
 from odoo import api
+import requests
+import json
 
 class DuAn(models.Model):
     _name = 'du_an'
@@ -97,3 +99,32 @@ class DuAn(models.Model):
             if num_part.isdigit():
                 max_num = max(max_num, int(num_part))
         return f"{prefix}{(max_num + 1):05d}"
+    
+    def action_ai_suggest_description(self):
+        """Gọi Gemini API để gợi ý mô tả dự án"""
+        self.ensure_one()
+        if not self.name:
+            raise UserError("Vui lòng nhập tên dự án trước khi gợi ý.")
+
+        api_key = self.env['ir.config_parameter'].sudo().get_param('gemini_api_key', '')
+        if not api_key:
+            raise UserError("Chưa cấu hình Gemini API Key! Vào Cài đặt > Kỹ thuật > Tham số hệ thống, thêm gemini_api_key.")
+
+        base_url = self.env['ir.config_parameter'].sudo().get_param('gemini_api_url', '')
+        if not base_url:
+            base_url = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent'
+
+        prompt = f"Hãy viết mô tả chi tiết, chuyên nghiệp và ngắn gọn cho dự án phần mềm '{self.name}'."
+        url = f"{base_url}?key={api_key}"
+        headers = {'Content-Type': 'application/json'}
+        data = {"contents": [{"parts": [{"text": prompt}]}]}
+
+        try:
+            response = requests.post(url, headers=headers, json=data, timeout=30)
+            if response.status_code != 200:
+                raise UserError(f"Lỗi AI: {response.text}")
+            result = response.json()
+            suggestion = result['candidates'][0]['content']['parts'][0]['text']
+            self.write({'mo_ta': suggestion})
+        except Exception as e:
+            raise UserError(f"Không thể lấy kết quả từ AI: {str(e)}")

@@ -155,9 +155,9 @@ class CongViec(models.Model):
             raise UserError("Vui lòng nhập tên công việc trước khi gợi ý.")
         api_key = self.env['ir.config_parameter'].sudo().get_param('gemini_api_key', '')
         if not api_key:
-            raise UserError("Chưa cấu hình Gemini API Key! Vào Cài đặt > Kỹ thuật > Tham số hệ thống, thêm gemini_api_key.")
+            raise UserError("Chưa cấu hình Gemini API Key! Vào Cài đặt > Kỹ thuật > Tham số hệ thống, thêm key gemini_api_key và value là api key gemini của bạn.")
 
-        prompt = f"Hãy viết mô tả chi tiết, chuyên nghiệp cho công việc '{self.ten_cv}' trong dự án thiết kế phần mềm '{self.du_an_id.name}'."
+        prompt = f"Hãy viết mô tả chi tiết, chuyên nghiệp và ngắn gọn cho công việc '{self.ten_cv}' trong dự án thiết kế phần mềm '{self.du_an_id.name}'."
         url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key={api_key}"
         headers = {'Content-Type': 'application/json'}
         data = {

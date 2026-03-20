@@ -24,12 +24,15 @@
     'data': [
         # security
         'security/ir.model.access.csv',
+        # AI
+        'data/AI/ai_actions_desc_project.xml', 
         # view
         'views/du_an.xml',
         'views/kinh_phi_du_kien.xml',
         'views/nhan_vien_tham_gia.xml',
         'views/bao_cao_tien_do_du_an.xml',
         'views/du_an_dashboard.xml',
+        'views/du_an_ai_button.xml',
         # automation
         'data/automation/01_create_tasks_on_project.xml',
         'data/automation/02_assign_project_manager.xml',

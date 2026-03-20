@@ -7,7 +7,7 @@
         <field name="arch" type="xml">
             <graph type="pie" string="Khách hàng theo loại">
                 <field name="loai_kh" type="row"/>
-                <field name="id" type="measure" operator="count" string="Số lượng"/>
+                <!-- <field name="id" type="measure" operator="count" string="Số lượng"/> -->
             </graph>
         </field>
     </record>
@@ -19,7 +19,7 @@
         <field name="arch" type="xml">
             <pivot string="Khách hàng theo loại - Pivot">
                 <field name="loai_kh" type="row"/>
-                <field name="id" type="measure" string="Số lượng"/>   <!-- Chỉ cần thế này -->
+                <!-- <field name="id" type="measure" string="Số lượng" operator="count"/> -->
             </pivot>
         </field>
     </record>
@@ -31,7 +31,7 @@
         <field name="arch" type="xml">
             <graph type="pie" string="Lịch hẹn theo trạng thái">
                 <field name="trang_thai" type="row"/>
-                <field name="id" type="measure" operator="count" string="Số lượng"/>
+                <!-- <field name="id" type="measure" operator="count" string="Số lượng"/> -->
             </graph>
         </field>
     </record>
@@ -42,7 +42,7 @@
         <field name="arch" type="xml">
             <graph type="bar" string="Tương tác theo kênh">
                 <field name="kenh" type="row"/>
-                <field name="id" type="measure" operator="count" string="Số lượng"/>
+                <!-- <field name="id" type="measure" operator="count" string="Số lượng"/> -->
             </graph>
         </field>
     </record>

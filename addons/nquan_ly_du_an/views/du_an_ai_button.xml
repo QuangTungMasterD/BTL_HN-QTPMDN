@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_du_an_form_ai_button" model="ir.ui.view">
+        <field name="name">du_an.form.ai.button</field>
+        <field name="model">du_an</field>
+        <field name="inherit_id" ref="nquan_ly_du_an.view_du_an_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet" position="inside">
+                <group>
+                    <button name="%(action_server_ai_suggest_project_description)d" string="mô tả bằng AI" type="action" class="btn-primary"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>
