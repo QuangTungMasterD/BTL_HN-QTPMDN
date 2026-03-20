@@ -1,7 +1,8 @@
 from odoo import models, fields, api
-from datetime import date
-
 from odoo.exceptions import ValidationError
+from datetime import date
+import re
+
 
 class NhanVien(models.Model):
     # _name = 'nhan_vien'
@@ -22,6 +23,23 @@ class NhanVien(models.Model):
          ('thoi_viec', 'Thôi việc')],
         string="Trạng thái", default='dang_lam'
     )
+    so_cccd = fields.Char(string='Số CCCD', tracking=True)
+
+    @api.constrains('so_cccd')
+    def _check_so_cccd(self):
+        for record in self:
+            if record.so_cccd:
+                if not re.match(r'^\d{12}$', record.so_cccd):
+                    raise ValidationError("Số CCCD phải gồm đúng 12 chữ số!")
+                
+    @api.constrains('so_cccd')
+    def _check_unique_cccd(self):
+        for rec in self:
+            if self.search_count([
+                ('so_cccd', '=', rec.so_cccd),
+                ('id', '!=', rec.id)
+            ]) > 0:
+                raise ValidationError("Số cccd đã tồn tại!")
 
     @api.constrains('ma_dinh_danh')
     def _check_ma_dinh_danh(self):
@@ -61,3 +79,20 @@ class NhanVien(models.Model):
                 record.tuoi = age
             else:
                 record.tuoi = 0
+
+    @api.model
+    def create(self, vals):
+        if 'ma_dinh_danh' not in vals:
+            vals['ma_dinh_danh'] = self._generate_code('NV', 'ma_dinh_danh')
+        return super(NhanVien, self).create(vals)
+
+    def _generate_code(self, prefix, field_name):
+        """Tạo mã theo prefix + số thứ tự tự động tăng"""
+        # Tìm số lớn nhất hiện có
+        records = self.search([(field_name, '=like', prefix + '%')])
+        max_num = 0
+        for rec in records:
+            num_part = rec[field_name][len(prefix):]
+            if num_part.isdigit():
+                max_num = max(max_num, int(num_part))
+        return f"{prefix}{(max_num + 1):05d}"

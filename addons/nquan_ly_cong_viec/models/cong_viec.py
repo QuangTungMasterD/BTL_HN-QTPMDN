@@ -1,6 +1,8 @@
 from odoo import models, fields
-from odoo.exceptions import ValidationError
+from odoo.exceptions import ValidationError, UserError
 from odoo import api
+import requests
+import json
 
 class CongViec(models.Model):
     _name = "cong_viec"
@@ -109,3 +111,64 @@ class CongViec(models.Model):
     def _compute_display_name(self):
         for record in self:
             record.display_name = f"{record.ma_cv} - {record.ten_cv}"
+
+    @api.model
+    def create(self, vals):
+        if 'ma_cv' not in vals:
+            project_id = vals.get('du_an_id')
+            if project_id:
+                seq = self._get_next_task_sequence(project_id)
+                project = self.env['du_an'].browse(project_id)
+                vals['ma_cv'] = f"{project.ma_du_an}CV{seq:05d}"
+            else:
+                vals['ma_cv'] = self._generate_fallback_code('CV')
+        return super(CongViec, self).create(vals)
+
+    def _get_next_task_sequence(self, project_id):
+        """Trả về số thứ tự tiếp theo cho dự án (bắt đầu từ 1)"""
+        tasks = self.search([('du_an_id', '=', project_id)])
+        max_seq = 0
+        for task in tasks:
+            if task.ma_cv:
+                parts = task.ma_cv.split('CV')
+                if len(parts) == 2:
+                    num_part = parts[1]
+                    if num_part.isdigit():
+                        max_seq = max(max_seq, int(num_part))
+        return max_seq + 1
+
+    def _generate_fallback_code(self, prefix):
+        """Fallback nếu không có dự án"""
+        records = self.search([('ma_cv', '=like', prefix + '%')])
+        max_num = 0
+        for rec in records:
+            num_part = rec.ma_cv[len(prefix):]
+            if num_part.isdigit():
+                max_num = max(max_num, int(num_part))
+        return f"{prefix}{(max_num + 1):05d}"
+    
+    # AI
+    def action_ai_suggest_description(self):
+        """Gọi Gemini API để gợi ý mô tả công việc"""
+        self.ensure_one()
+        if not self.ten_cv:
+            raise UserError("Vui lòng nhập tên công việc trước khi gợi ý.")
+        api_key = self.env['ir.config_parameter'].sudo().get_param('gemini_api_key', '')
+        if not api_key:
+            raise UserError("Chưa cấu hình Gemini API Key! Vào Cài đặt > Kỹ thuật > Tham số hệ thống, thêm gemini_api_key.")
+
+        prompt = f"Hãy viết mô tả chi tiết, chuyên nghiệp cho công việc '{self.ten_cv}' trong dự án thiết kế phần mềm '{self.du_an_id.name}'."
+        url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key={api_key}"
+        headers = {'Content-Type': 'application/json'}
+        data = {
+            "contents": [{"parts": [{"text": prompt}]}]
+        }
+        try:
+            response = requests.post(url, headers=headers, json=data, timeout=30)
+            if response.status_code != 200:
+                raise UserError(f"Lỗi AI: {response.text}")
+            result = response.json()
+            suggestion = result['candidates'][0]['content']['parts'][0]['text']
+            self.write({'mo_ta': suggestion})
+        except Exception as e:
+            raise UserError(f"Không thể lấy kết quả từ AI: {str(e)}")

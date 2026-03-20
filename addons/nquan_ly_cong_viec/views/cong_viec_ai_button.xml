@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_cong_viec_form_ai_button" model="ir.ui.view">
+        <field name="name">cong_viec.form.ai.button</field>
+        <field name="model">cong_viec</field>
+        <field name="inherit_id" ref="nquan_ly_cong_viec.view_cong_viec_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet" position="inside">
+                <group>
+                    <button name="%(action_server_ai_suggest_task_description)d" string="mô tả AI" type="action" class="btn-primary"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

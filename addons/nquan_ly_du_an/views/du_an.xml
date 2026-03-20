@@ -9,7 +9,7 @@
                     <sheet>
                         <div class="oe_read_only" style="font-size:25px">Dự án</div>
                         <group string="Thông tin chung" col="4">
-                            <field name="ma_du_an" />
+                            <!-- <field name="ma_du_an" /> -->
                             <field name="name" />
                             <field name="khach_hang_id" />
                             <field name="phu_trach_id" />

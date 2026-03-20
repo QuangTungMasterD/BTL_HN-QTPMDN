@@ -10,7 +10,7 @@
                         <div class="oe_read_only" style="font-size:25px">Công việc</div>
                         <field name="available_nhan_vien_ids" invisible="1"/>
                         <group string="Thông tin chung" col="4">
-                            <field name="ma_cv" />
+                            <!-- <field name="ma_cv" /> -->
                             <field name="ten_cv" />
                             <field name="du_an_id" />
                             <field name="nhan_vien_phu_trach_ids" widget="many2many_tags" />

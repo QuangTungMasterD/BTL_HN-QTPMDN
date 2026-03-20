@@ -80,3 +80,20 @@ class DuAn(models.Model):
     def _compute_display_name(self):
         for record in self:
             record.display_name = f"{record.ma_du_an} - {record.name}"
+    
+    @api.model
+    def create(self, vals):
+        if 'ma_du_an' not in vals:
+            vals['ma_du_an'] = self._generate_code('DA', 'ma_du_an')
+        return super(DuAn, self).create(vals)
+
+    def _generate_code(self, prefix, field_name):
+        """Tạo mã theo prefix + số thứ tự tự động tăng"""
+        # Tìm số lớn nhất hiện có
+        records = self.search([(field_name, '=like', prefix + '%')])
+        max_num = 0
+        for rec in records:
+            num_part = rec[field_name][len(prefix):]
+            if num_part.isdigit():
+                max_num = max(max_num, int(num_part))
+        return f"{prefix}{(max_num + 1):05d}"

@@ -4,10 +4,8 @@ from odoo.exceptions import ValidationError
 class DuAn(models.Model):
     _inherit = 'du_an'
 
-    # Quan hệ One2many đến công việc (giúp theo dõi danh sách công việc thuộc dự án)
     cong_viec_ids = fields.One2many('cong_viec', 'du_an_id', string='Công việc')
 
-    # Các trường tính toán tiến độ
     tong_so_cong_viec = fields.Integer(
         string='Tổng số công việc',
         compute='_tinh_tien_do_du_an',

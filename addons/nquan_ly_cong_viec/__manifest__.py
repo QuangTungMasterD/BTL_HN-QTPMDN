@@ -25,11 +25,14 @@
     'data': [
         # security
         'security/ir.model.access.csv',
+        # AI server actions
+        'data/AI/ai_actions_suggest_desc_task.xml',
         # view
         'views/cong_viec.xml',
         'views/bao_cao_tien_do.xml',
         'views/cong_viec_dashboard.xml',
         'views/du_an_inherit.xml',
+        'views/cong_viec_ai_button.xml',
         # template
         'data/templates/email_deadline_task_templates.xml',
         # automation

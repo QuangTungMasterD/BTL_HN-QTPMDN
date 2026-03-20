@@ -7,7 +7,7 @@
         <field name="arch" type="xml">
             <!-- Thêm mã nhân viên sau tên -->
             <field name="name" position="after">
-                <field name="ma_dinh_danh" placeholder="Mã nhân viên" required="1"/>
+                <!-- <field name="ma_dinh_danh" placeholder="Mã nhân viên" required="1"/> -->
             </field>
 
             <!-- Thêm quê quán, ngày vào làm, trạng thái vào cuối tab Private Information -->
@@ -22,6 +22,10 @@
             <!-- Thêm tuổi sau ngày sinh -->
             <field name="birthday" position="after">
                 <field name="tuoi"/>
+            </field>
+
+            <field name="identification_id" position="after">
+                <field name="so_cccd"/>
             </field>
         </field>
     </record>

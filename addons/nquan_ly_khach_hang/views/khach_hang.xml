@@ -9,7 +9,7 @@
                     <sheet>
                         <div class="oe_read_only" style="font-size:25px">Khách hàng</div>
                         <group col="4">
-                            <field name="ma_kh"/>
+                            <!-- <field name="ma_kh"/> -->
                             <field name="ten_kh"/>
                             <field name="loai_kh"/>
                             <field name="ma_so_thue" attrs="{'invisible': [('loai_kh', '=', 'ca_nhan')]}"/>
