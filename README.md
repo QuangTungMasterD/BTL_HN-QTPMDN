@@ -114,8 +114,6 @@ Người sử dụng truy cập theo đường dẫn _http://localhost:8069/_ đ
 - Odoo chuyển hướng tới tài khoản google > Cấp quyền.
 
 #### **Lưu ý: Chỉ những nhân viên đã kết nối tài khoản Google mới nhận được sự kiện đồng bộ.**
-
-<br/>
 <br/>
 <br/>
 
