@@ -63,40 +63,55 @@
         </record>
 
         <record id="view_du_an_kanban" model="ir.ui.view">
-            <field name="name">du_an.kanban</field>
-            <field name="model">du_an</field>
-            <field name="arch" type="xml">
-                <kanban>
-                    <!-- Các trường cần sử dụng trong template -->
-                    <field name="ma_du_an" />
-                    <field name="name" />
-                    <field name="khach_hang_id" />
-                    <field name="phu_trach_id" />
-                    <field name="trang_thai" />
-                    <!-- <field name="tien_do_phan_tram" /> -->
-                    <templates>
-                        <t t-name="kanban-box">
-                            <div class="oe_kanban_global_click">
-                                <div class="o_kanban_record_top">
-                                    <div class="o_kanban_record_headings">
-                                        <strong class="o_kanban_record_title">
-                                            <field name="ma_du_an" /> - <field name="name" />
-                                        </strong>
-                                    </div>
-                                </div>
-                                <div class="o_kanban_record_body">
-                                    <div>Khách hàng: <field name="khach_hang_id" /></div>
-                                    <div>Phụ trách: <field name="phu_trach_id" /></div>
-                                    <div>Trạng thái: <field name="trang_thai" /></div>
-                                    <!-- <div>Tiến độ: <field name="tien_do_phan_tram" -->
-                                            <!-- widget="progressbar" /></div> -->
-                                </div>
+    <field name="name">du_an.kanban</field>
+    <field name="model">du_an</field>
+    <field name="arch" type="xml">
+        <kanban decoration-success="do_uu_tien == 'cao'" 
+                decoration-info="do_uu_tien == 'trung_binh'" 
+                decoration-muted="do_uu_tien == 'thap'">
+            <field name="ma_du_an" />
+            <field name="name" />
+            <field name="khach_hang_id" />
+            <field name="phu_trach_id" />
+            <field name="trang_thai" />
+            <field name="do_uu_tien" />
+            <templates>
+                <t t-name="kanban-box">
+                    <div class="oe_kanban_global_click">
+                        <div class="o_kanban_record_top">
+                            <div class="o_kanban_record_headings">
+                                <strong class="o_kanban_record_title">
+                                    <field name="ma_du_an" /> - <field name="name" />
+                                </strong>
                             </div>
-                        </t>
-                    </templates>
-                </kanban>
-            </field>
-        </record>
+                        </div>
+                        <div class="o_kanban_record_body">
+                            <div>Khách hàng: <field name="khach_hang_id" /></div>
+                            <div>Phụ trách: <field name="phu_trach_id" /></div>
+                            <div>Trạng thái: <field name="trang_thai" /></div>
+                        </div>
+                        <div class="o_kanban_record_bottom">
+                            <div>
+                                <t t-if="record.do_uu_tien.raw_value == 'cao'">
+                                    <i class="fa fa-exclamation-circle text-danger"/> 
+                                    <span class="text-danger">Cao</span>
+                                </t>
+                                <t t-elif="record.do_uu_tien.raw_value == 'trung_binh'">
+                                    <i class="fa fa-exclamation-circle text-warning"/> 
+                                    <span class="text-warning">Trung bình</span>
+                                </t>
+                                <t t-elif="record.do_uu_tien.raw_value == 'thap'">
+                                    <i class="fa fa-exclamation-circle text-info"/> 
+                                    <span class="text-info">Thấp</span>
+                                </t>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+            </templates>
+        </kanban>
+    </field>
+</record>
 
         <record id="action_du_an" model="ir.actions.act_window">
             <field name="name">Dự án</field>
