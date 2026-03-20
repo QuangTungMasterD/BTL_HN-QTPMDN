@@ -14,7 +14,7 @@
     'category': 'Project',
     'version': '0.1',
 
-    'depends': ['base', 'nhan_su', 'nquan_ly_du_an', 'base_automation', 'mail'],
+    'depends': ['base', 'nhan_su', 'nquan_ly_du_an', 'base_automation', 'mail', 'google_calendar'],
     # 'depends': ['base', 'nhan_su', 'nquan_ly_du_an'],
     'assets': {
         'web.assets_backend': [
@@ -23,15 +23,21 @@
     },
 
     'data': [
+        # security
         'security/ir.model.access.csv',
+        # view
         'views/cong_viec.xml',
         'views/bao_cao_tien_do.xml',
         'views/cong_viec_dashboard.xml',
+        'views/du_an_inherit.xml',
+        # template
         'data/templates/email_deadline_task_templates.xml',
+        # automation
         'data/automation/task_deadline_reminder.xml',
         'data/automation/update_task_status_from_progress.xml',
         'data/automation/create_project_report_on_task_state.xml',
-        'views/du_an_inherit.xml',
+        'data/automation/create_calendar_event_from_task.xml',
+        # menu
         'views/menu.xml',
     ],
 

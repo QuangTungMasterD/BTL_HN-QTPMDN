@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+
+        <!-- Server action: Tạo sự kiện lịch từ dự án -->
+        <record id="action_server_create_event_from_project" model="ir.actions.server">
+            <field name="name">Tạo sự kiện lịch từ dự án</field>
+            <field name="model_id" ref="model_du_an"/>
+            <field name="state">code</field>
+            <field name="code">
+<![CDATA[
+for project in records:
+    if not project.phu_trach_id:
+        continue
+    if not project.ngay_kt_du_kien:  # Thêm kiểm tra
+        continue
+    partner = project.phu_trach_id.user_id.partner_id
+    if not partner:
+        continue
+    env['calendar.event'].create({
+        'name': f"Dự án: {project.name}",
+        'description': f"Mã: {project.ma_du_an}\nKhách hàng: {project.khach_hang_id.ten_kh}",
+        'start': project.ngay_kt_du_kien,
+        'stop': project.ngay_kt_du_kien,
+        'allday': True,
+        'partner_ids': [(6, 0, [partner.id])],
+        'user_id': project.phu_trach_id.user_id.id,
+    })
+]]>
+            </field>
+        </record>
+
+        <!-- Automated action: Khi tạo dự án mới -->
+        <record id="automated_action_create_event_on_project_create" model="base.automation">
+            <field name="name">Tạo sự kiện lịch khi tạo dự án</field>
+            <field name="model_id" ref="model_du_an"/>
+            <field name="trigger">on_create</field>
+            <field name="action_server_id" ref="action_server_create_event_from_project"/>
+            <field name="active">True</field>
+        </record>
+
+        <!-- Automated action: Khi cập nhật dự án -->
+        <record id="automated_action_create_event_on_project_write" model="base.automation">
+            <field name="name">Tạo sự kiện lịch khi cập nhật dự án</field>
+            <field name="model_id" ref="model_du_an"/>
+            <field name="trigger">on_write</field>
+            <field name="action_server_id" ref="action_server_create_event_from_project"/>
+            <field name="active">True</field>
+        </record>
+
+    </data>
+</odoo>

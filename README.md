@@ -84,6 +84,8 @@ Lệnh chạy
 python3 odoo-bin.py -c odoo.conf -u all
 ```
 Người sử dụng truy cập theo đường dẫn _http://localhost:8069/_ để đăng nhập vào hệ thống.
-# 📖 3. Tham khảo
+# 📅 3. Tích hợp Google Calendar
+
+# 📖 4. Tham khảo
 - #### [Module công việc](https://github.com/HDatz/TTDN-15-03-N6/tree/main/addons/quan_ly_cong_viec)
 - #### [Module khách hàng](https://github.com/ThienDao103/TTDN-15-03-N5/tree/main/addons/quan_ly_khach_hang)

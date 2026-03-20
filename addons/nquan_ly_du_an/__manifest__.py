@@ -14,7 +14,7 @@
     'category': 'Sales/CRM',
     'version': '0.1',
 
-    'depends': ['base', 'nhan_su', 'nquan_ly_khach_hang', 'base_automation', 'mail'],
+    'depends': ['base', 'nhan_su', 'nquan_ly_khach_hang', 'base_automation', 'mail', 'google_calendar'],
     'assets': {
         'web.assets_backend': [
             'nquan_ly_khach_hang/static/src/css/khach_hang.css',
@@ -35,6 +35,7 @@
         'data/automation/02_assign_project_manager.xml',
         'data/automation/project_deadline_reminder.xml',
         'data/automation/create_appointment_on_state_project.xml',
+        'data/automation/create_calendar_event_from_project.xml',
         # template
         'data/templates/email_deadline_project_templates.xml',
         # menu

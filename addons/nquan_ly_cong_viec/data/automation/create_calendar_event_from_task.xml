@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+
+        <!-- Server action: Tạo sự kiện lịch từ công việc -->
+        <record id="action_server_create_event_from_task" model="ir.actions.server">
+            <field name="name">Tạo sự kiện lịch từ công việc</field>
+            <field name="model_id" ref="model_cong_viec"/>
+            <field name="state">code</field>
+            <field name="code">
+<![CDATA[
+for task in records:
+    if not task.nhan_vien_phu_trach_ids:
+        continue
+    if not task.ngay_kt:  # Thêm kiểm tra
+        continue
+    # Lấy danh sách đối tác (partner) từ nhân viên phụ trách
+    partners = task.nhan_vien_phu_trach_ids.mapped('user_id.partner_id')
+    if not partners:
+        continue
+    # Tạo sự kiện lịch (cả ngày)
+    env['calendar.event'].create({
+        'name': f"Công việc: {task.ten_cv}",
+        'description': f"Mô tả: {task.mo_ta or ''}\nDự án: {task.du_an_id.name}",
+        'start': task.ngay_kt,
+        'stop': task.ngay_kt,
+        'allday': True,
+        'partner_ids': [(6, 0, partners.ids)],
+        'user_id': task.nhan_vien_phu_trach_ids[0].user_id.id or env.user.id,
+    })
+]]>
+            </field>
+        </record>
+
+        <!-- Automated action: Khi tạo công việc mới -->
+        <record id="automated_action_create_event_on_task_create" model="base.automation">
+            <field name="name">Tạo sự kiện lịch khi tạo công việc</field>
+            <field name="model_id" ref="model_cong_viec"/>
+            <field name="trigger">on_create</field>
+            <field name="action_server_id" ref="action_server_create_event_from_task"/>
+            <field name="active">True</field>
+        </record>
+
+        <!-- Automated action: Khi cập nhật công việc -->
+        <record id="automated_action_create_event_on_task_write" model="base.automation">
+            <field name="name">Tạo sự kiện lịch khi cập nhật công việc</field>
+            <field name="model_id" ref="model_cong_viec"/>
+            <field name="trigger">on_write</field>
+            <field name="action_server_id" ref="action_server_create_event_from_task"/>
+            <field name="active">True</field>
+        </record>
+
+    </data>
+</odoo>
