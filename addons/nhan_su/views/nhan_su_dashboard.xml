@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- 1. Biểu đồ tròn: nhân viên theo trạng thái (dang_lam, tam_nghi, thoi_viec) -->
+        <record id="view_nhan_vien_graph_trang_thai" model="ir.ui.view">
+            <field name="name">nhan_vien.graph.trang_thai</field>
+            <field name="model">hr.employee</field>
+            <field name="arch" type="xml">
+                <graph type="pie" string="Nhân viên theo trạng thái">
+                    <field name="trang_thai" type="row"/>
+                    <!-- <field name="__count__" type="measure" string="Số lượng"/> -->
+                </graph>
+            </field>
+        </record>
+
+        <!-- 2. Biểu đồ cột: nhân viên theo đơn vị và giới tính -->
+        <record id="view_nhan_vien_graph_don_vi_gender" model="ir.ui.view">
+            <field name="name">nhan_vien.graph.don_vi_gender</field>
+            <field name="model">hr.employee</field>
+            <field name="arch" type="xml">
+                <graph type="bar" string="Nhân viên theo đơn vị và giới tính">
+                    <field name="department_id" type="row"/>
+                    <field name="gender" type="col"/>
+                    <!-- <field name="__count__" type="measure" string="Số lượng"/> -->
+                </graph>
+            </field>
+        </record>
+
+        <!-- 3. Biểu đồ tròn: nhân viên theo chức vụ -->
+        <record id="view_nhan_vien_graph_chuc_vu" model="ir.ui.view">
+            <field name="name">nhan_vien.graph.chuc_vu</field>
+            <field name="model">hr.employee</field>
+            <field name="arch" type="xml">
+                <graph type="pie" string="Nhân viên theo chức vụ">
+                    <field name="job_id" type="row"/>
+                    <!-- <field name="__count__" type="measure" string="Số lượng"/> -->
+                </graph>
+            </field>
+        </record>
+
+        <!-- 4. Biểu đồ cột: nhân viên theo độ tuổi (dùng nhóm theo khoảng) -->
+        <record id="view_nhan_vien_graph_tuoi" model="ir.ui.view">
+            <field name="name">nhan_vien.graph.tuoi</field>
+            <field name="model">hr.employee</field>
+            <field name="arch" type="xml">
+                <graph type="bar" string="Nhân viên theo độ tuổi">
+                    <field name="tuoi" type="row"/>
+                    <!-- <field name="__count__" type="measure" string="Số lượng"/> -->
+                </graph>
+            </field>
+        </record>
+
+        <!-- 5. Pivot: nhân viên theo đơn vị và trạng thái -->
+        <record id="view_nhan_vien_pivot_don_vi_trang_thai" model="ir.ui.view">
+            <field name="name">nhan_vien.pivot.don_vi_trang_thai</field>
+            <field name="model">hr.employee</field>
+            <field name="arch" type="xml">
+                <pivot string="Nhân viên theo đơn vị và trạng thái">
+                    <field name="department_id" type="row"/>
+                    <field name="trang_thai" type="col"/>
+                    <!-- <field name="__count__" type="measure" string="Số lượng"/> -->
+                </pivot>
+            </field>
+        </record>
+
+        <!-- Action dashboard (hiển thị graph và pivot, mặc định là biểu đồ trạng thái) -->
+        <record id="action_nhan_su_dashboard" model="ir.actions.act_window">
+            <field name="name">Dashboard Nhân sự</field>
+            <field name="res_model">hr.employee</field>
+            <field name="view_mode">graph,pivot</field>
+            <field name="view_id" ref="view_nhan_vien_graph_trang_thai"/>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Thống kê nhân viên theo trạng thái, đơn vị, chức vụ, độ tuổi,...
+                </p>
+            </field>
+        </record>
+    </data>
+</odoo>
