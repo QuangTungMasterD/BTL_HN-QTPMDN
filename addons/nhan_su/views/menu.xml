@@ -1,10 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
+        <menuitem id="menu_danh_gia_nhan_su"
+            name="Đánh giá nhân sự"
+            parent="hr.menu_hr_root"
+            action="action_danh_gia_nhan_su"
+            sequence="10" />
+
         <menuitem id="menu_nhan_su_dashboard"
-                  name="Dashboard Nhân sự"
-                  parent="hr.menu_hr_root"
-                  action="action_nhan_su_dashboard"
-                  sequence="10"/>
+            name="Dashboard Nhân sự"
+            parent="hr.menu_hr_root"
+            action="action_nhan_su_dashboard"
+            sequence="11" />
+
     </data>
 </odoo>

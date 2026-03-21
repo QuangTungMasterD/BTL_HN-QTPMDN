@@ -1,5 +1,6 @@
 from odoo import models, fields, api
 from odoo.exceptions import ValidationError
+import re
 
 class KhachHang(models.Model):
     _name = 'khach_hang'
@@ -16,8 +17,34 @@ class KhachHang(models.Model):
         string="Loại khách hàng",
         default='doanh_nghiep', required=True
     )
+    ten_cong_ty = fields.Char(string="Tên công ty")
     ma_so_thue = fields.Char(string="Mã số thuế")
+    so_cccd = fields.Char(string="Số CCCD", required=True)
     ghi_chu = fields.Text(string="Ghi chú")
+
+    @api.constrains('loai_kh', 'ma_so_thue', 'ten_cong_ty')
+    def _check_company_fields(self):
+        for record in self:
+            if record.loai_kh == 'doanh_nghiep':
+                if not record.ma_so_thue:
+                    raise ValidationError("Vui lòng nhập mã số thuế cho khách hàng doanh nghiệp!")
+                if not record.ten_cong_ty:
+                    raise ValidationError("Vui lòng nhập tên công ty cho khách hàng doanh nghiệp!")
+
+    @api.constrains('so_cccd')
+    def _check_so_cccd(self):
+        for rec in self:
+            if rec.so_cccd and not re.match(r'^\d{12}$', rec.so_cccd):
+                raise ValidationError("Số CCCD phải gồm đúng 12 chữ số!")
+    
+    @api.constrains('so_cccd')
+    def _check_unique_cccd(self):
+        for rec in self:
+            if self.search_count([
+                ('so_cccd', '=', rec.so_cccd),
+                ('id', '!=', rec.id)
+            ]) > 0:
+                raise ValidationError("CCCD khách hàng đã tồn tại!")
 
     _sql_constraints = [
         ('ma_kh_unique', 'unique(ma_kh)', 'Mã khách hàng đã tồn tại!')

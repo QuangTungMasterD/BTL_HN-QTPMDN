@@ -25,11 +25,12 @@
 
     # always loaded
     'data': [
+        'security/ir.model.access.csv',
         'views/hr_employee_views.xml',
-        # 'security/ir.model.access.csv',
         # 'views/chuc_vu.xml',
         # 'views/don_vi.xml',
         # 'views/nhan_vien.xml',
+        'views/danh_gia_nhan_su.xml',
         'views/nhan_su_dashboard.xml',
         'views/menu.xml',
     ],

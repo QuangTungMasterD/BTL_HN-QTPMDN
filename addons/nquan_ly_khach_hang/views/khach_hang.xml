@@ -13,7 +13,9 @@
                             <field name="ten_kh"/>
                             <field name="loai_kh"/>
                             <field name="ma_so_thue" attrs="{'invisible': [('loai_kh', '=', 'ca_nhan')]}"/>
+                            <field name="ten_cong_ty" attrs="{'invisible': [('loai_kh', '!=', 'doanh_nghiep')]}"/>
                             <field name="sdt"/>
+                            <field name="so_cccd"/>
                             <field name="email"/>
                         </group>
                         <group string="Địa chỉ">
@@ -35,6 +37,7 @@
                     <field name="ma_kh"/>
                     <field name="ten_kh"/>
                     <field name="loai_kh"/>
+                    <field name="so_cccd"/>
                     <field name="sdt"/>
                     <field name="email"/>
                 </tree>
@@ -46,10 +49,11 @@
             <field name="arch" type="xml">
                 <search>
                     <field name="ma_kh"/>
+                    <field name="loai_kh"/>
                     <field name="ten_kh"/>
+                    <field name="so_cccd"/>
                     <field name="sdt"/>
                     <field name="email"/>
-                    <field name="loai_kh"/>
                 </search>
             </field>
         </record>

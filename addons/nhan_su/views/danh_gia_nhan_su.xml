@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Form view -->
+        <record id="view_danh_gia_nhan_su_form" model="ir.ui.view">
+            <field name="name">danh_gia_nhan_su.form</field>
+            <field name="model">danh_gia_nhan_su</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>Đánh giá nhân sự</h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="nhan_vien_id"/>
+                                <field name="nguoi_danh_gia_id" readonly="1"/>
+                                <field name="ngay_danh_gia"/>
+                            </group>
+                            <group>
+                                <field name="diem" widget="priority"/>
+                                <field name="trang_thai" widget="statusbar"/>
+                            </group>
+                        </group>
+                        <group string="Nhận xét">
+                            <field name="nhan_xet" nolabel="1" placeholder="Nhập nhận xét chi tiết..."/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Tree view -->
+        <record id="view_danh_gia_nhan_su_tree" model="ir.ui.view">
+            <field name="name">danh_gia_nhan_su.tree</field>
+            <field name="model">danh_gia_nhan_su</field>
+            <field name="arch" type="xml">
+                <tree decoration-success="trang_thai == 'da_danh_gia'"
+                      decoration-muted="trang_thai == 'huy'"
+                      decoration-info="trang_thai == 'du_kien'">
+                    <field name="nhan_vien_id"/>
+                    <field name="ngay_danh_gia"/>
+                    <field name="diem" widget="priority"/>
+                    <field name="nguoi_danh_gia_id"/>
+                    <field name="trang_thai"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Search view -->
+        <record id="danh_gia_nhan_su_search" model="ir.ui.view">
+            <field name="model">danh_gia_nhan_su</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="nhan_vien_id"/>
+                    <field name="nguoi_danh_gia_id"/>
+                    <field name="diem"/>
+                    <field name="trang_thai"/>
+                    <filter name="da_danh_gia" string="Đã đánh giá" domain="[('trang_thai','=','da_danh_gia')]"/>
+                    <filter name="du_kien" string="Dự kiến" domain="[('trang_thai','=','du_kien')]"/>
+                    <separator/>
+                    <filter name="group_by_nhan_vien" string="Theo nhân viên" context="{'group_by':'nhan_vien_id'}"/>
+                    <filter name="group_by_thang" string="Theo tháng" context="{'group_by':'ngay_danh_gia:month'}"/>
+                </search>
+            </field>
+        </record>
+
+        <!-- Action -->
+        <record id="action_danh_gia_nhan_su" model="ir.actions.act_window">
+            <field name="name">Đánh giá nhân sự</field>
+            <field name="res_model">danh_gia_nhan_su</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="danh_gia_nhan_su_search"/>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Tạo phiếu đánh giá nhân sự mới
+                </p>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -10,8 +10,7 @@
                         <div class="oe_read_only" style="font-size:25px">Đánh giá</div>
                         <group col="4">
                             <field name="khach_hang_id"/>
-                            <field name="du_an_id"/>
-                            <field name="diem"/>
+                            <field name="tiem_nang_khach_hang" widget="priority"/>
                             <field name="ngay"/>
                         </group>
                         <group>
@@ -28,8 +27,7 @@
             <field name="arch" type="xml">
                 <tree>
                     <field name="khach_hang_id"/>
-                    <field name="du_an_id"/>
-                    <field name="diem"/>
+                    <field name="tiem_nang_khach_hang" widget="priority"/>
                     <field name="ngay"/>
                 </tree>
             </field>
@@ -40,8 +38,7 @@
             <field name="arch" type="xml">
                 <search>
                     <field name="khach_hang_id"/>
-                    <field name="du_an_id"/>
-                    <field name="diem"/>
+                    <field name="tiem_nang_khach_hang" widget="priority" />
                     <field name="ngay"/>
                 </search>
             </field>
@@ -55,4 +52,3 @@
         </record>
     </data>
 </odoo>
-
