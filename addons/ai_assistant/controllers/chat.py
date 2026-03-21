@@ -1,7 +1,7 @@
 import json
 import requests
 import logging
-from odoo import http
+from odoo import http, fields
 from odoo.http import request
 
 _logger = logging.getLogger(__name__)
@@ -33,6 +33,14 @@ class AIChatController(http.Controller):
 
         # Bước 3: Dùng Gemini để tạo câu trả lời tự nhiên từ kết quả
         final_response = self._format_response(question, result, api_key)
+
+        if final_response and 'response' in final_response:
+            request.env['chat.history'].sudo().create({
+                'user_id': request.env.user.id,
+                'question': question,
+                'answer': final_response['response'],
+            })
+
         return {'response': final_response}
 
     def _parse_intent(self, question, api_key):
@@ -161,3 +169,4 @@ Chỉ trả JSON.
             return answer
         except:
             return "Xin lỗi, tôi chưa hiểu câu hỏi. Bạn có thể hỏi về số lượng nhân viên, dự án, công việc không?"
+        
