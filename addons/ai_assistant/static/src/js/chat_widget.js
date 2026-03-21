@@ -32,7 +32,7 @@ odoo.define('ai_assistant.chat_widget', function (require) {
                     <div id="chat_box" style="
                         display: none;
                         position: fixed;
-                        bottom: 90px;
+                        bottom: 20px;
                         right: 20px;
                         width: 300px;
                         height: 400px;
@@ -61,9 +61,9 @@ odoo.define('ai_assistant.chat_widget', function (require) {
                             padding:10px;
                         "></div>
 
-                        <div style="display:flex;border-top:1px solid #ccc;">
-                            <input id="chat_input" style="flex:1;border:none;padding:5px;">
-                            <button id="chat_send">Gửi</button>
+                        <div style="display:flex;border-top:1px solid #ccc;position: absolute;bottom: 0;width: 100%;height: 36px;">
+                            <input id="chat_input" style="flex:1;border:none;padding:5px;outline: none">
+                            <button id="chat_send" style="border: none; width: 50px; color: #007bff; background-color: #fff;">Gửi</button>
                         </div>
                     </div>
 
@@ -92,6 +92,8 @@ odoo.define('ai_assistant.chat_widget', function (require) {
                 rpc.query({
                     route: '/ai/chat',
                     params: {message: msg},
+                }, {
+                    shadow: true
                 }).then(function (res) {
                     $('#chat_messages').append(`<div><b>AI:</b> ${res.response}</div>`);
                     $('#chat_messages').scrollTop($('#chat_messages')[0].scrollHeight);

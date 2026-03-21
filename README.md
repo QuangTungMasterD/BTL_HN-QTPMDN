@@ -143,6 +143,7 @@ Người sử dụng truy cập theo đường dẫn _http://localhost:8069/_ đ
 - Nếu email đến hộp thư, cấu hình đã hoạt động.
 # 📅 7. Add AI gemini
 Tính năng này cho phép nhân viên nhấn nút "Gợi ý AI" trên form công việc hoặc dự án để tự động sinh mô tả chi tiết.
+- ***Lưu ý api free chỉ được 10 request/ ngày***
 ## 7.1. Lấy API key Gemini
 - Truy cập [Google AI Studio](https://aistudio.google.com), đăng nhập bằng tài khoản Google.
 - Nhấn import > import project bạn vừa tạo để kết nối Google Celander.

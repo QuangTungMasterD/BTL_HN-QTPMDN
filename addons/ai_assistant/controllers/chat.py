@@ -111,7 +111,6 @@ Chỉ trả JSON.
             for rec in records:
                 row = {}
                 for f in fields:
-                    # Lấy giá trị của trường, nếu là Many2one thì lấy tên
                     value = rec[f]
                     if hasattr(value, 'name'):
                         value = value.name
@@ -131,7 +130,6 @@ Chỉ trả JSON.
             items = result['list']
             if not items:
                 return "Không tìm thấy bản ghi nào."
-            # Tạo danh sách đơn giản
             lines = []
             for item in items:
                 line = ', '.join([f"{k}: {v}" for k, v in item.items()])
