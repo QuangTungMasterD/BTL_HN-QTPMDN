@@ -1,0 +1,24 @@
+<templates xml:space="preserve">
+    <t t-name="ai_assistant.chat_button">
+        <div class="o_ai_container">
+            
+            <!-- Nút mở chat -->
+            <div class="o_ai_toggle">
+                💬
+            </div>
+
+            <!-- Chat box -->
+            <div class="o_ai_chatbox" style="display:none;">
+                <div class="o_ai_header">AI Assistant</div>
+
+                <div class="o_ai_messages"></div>
+
+                <div class="o_ai_input_box">
+                    <input type="text" class="o_ai_input"/>
+                    <button class="o_ai_send">Gửi</button>
+                </div>
+            </div>
+
+        </div>
+    </t>
+</templates>

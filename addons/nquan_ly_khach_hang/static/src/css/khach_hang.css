@@ -172,6 +172,10 @@ select:focus {
     background-color: #3b82f6;
 }
 
+.o_form_view .o_form_uri {
+    color: #3b82f6;
+}
+
 .o_progressbar_complete {
     background-color: #3b82f6;
 }

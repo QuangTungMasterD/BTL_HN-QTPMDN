@@ -144,7 +144,7 @@ Người sử dụng truy cập theo đường dẫn _http://localhost:8069/_ đ
 # 📅 7. Add AI gemini
 Tính năng này cho phép nhân viên nhấn nút "Gợi ý AI" trên form công việc hoặc dự án để tự động sinh mô tả chi tiết.
 ## 7.1. Lấy API key Gemini
-- Truy cập Google AI Studio, đăng nhập bằng tài khoản Google.
+- Truy cập [Google AI Studio](https://aistudio.google.com), đăng nhập bằng tài khoản Google.
 - Nhấn import > import project bạn vừa tạo để kết nối Google Celander.
 - Nhấn Create API key > ***Copy key***.
 ## 7.2. Cấu hình API key trong Odoo
