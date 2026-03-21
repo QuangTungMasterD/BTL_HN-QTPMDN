@@ -21,14 +21,13 @@ tương tác và đánh giá gắn với dự án.
             'nquan_ly_khach_hang/static/src/css/khach_hang.css',
         ],
     },
-
     'data': [
         'security/ir.model.access.csv',
         'views/khach_hang.xml',
         'views/lich_hen.xml',
         'views/tuong_tac.xml',
         'views/danh_gia.xml',
-        'views/khach_hang_dashboard.xml',
+        'views/dashboard.xml',
         'views/menu.xml',
     ],
 
