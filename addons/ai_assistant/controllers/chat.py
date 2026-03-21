@@ -26,7 +26,6 @@ class AIChatController(http.Controller):
             # Nếu không phân tích được, trả về câu trả lời mặc định
             return self._fallback_response(question, api_key)
 
-        _logger.error(f"Intent = ===============: {intent_data}")
         # Bước 2: Thực thi truy vấn dựa trên intent
         result = self._execute_query(intent_data)
         if not result:
@@ -86,7 +85,6 @@ Chỉ trả JSON.
 
     def _execute_query(self, intent_data):
         """Thực thi truy vấn dựa trên intent"""
-        _logger.error("=== _execute_query called")
         model_name = intent_data.get('model')
         if not model_name:
             return None
@@ -98,8 +96,6 @@ Chỉ trả JSON.
 
         domain = intent_data.get('domain', [])
         intent = intent_data.get('intent')
-        _logger.error(f"intent: {intent}")
-        _logger.error(f"intent: {domain}")
         result = None
         if intent == 'count':
             count = model.search_count(domain)
@@ -119,7 +115,7 @@ Chỉ trả JSON.
             result = {'list': data, 'fields': fields}
         else:
             result = None
-        _logger.error(f"result: {result}")
+            
         return result
 
     def _format_response(self, question, result, api_key):
