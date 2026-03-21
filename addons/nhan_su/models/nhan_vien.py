@@ -60,7 +60,7 @@ class NhanVien(models.Model):
                 raise ValidationError("Số điện thoại đã tồn tại!")
             
     @api.constrains('work_email')
-    def _check_so_dien_thoai(self):
+    def _check_work_email(self):
         for rec in self:
             if self.search_count([
                 ('work_email', '=', rec.work_email),

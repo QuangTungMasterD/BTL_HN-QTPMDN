@@ -158,6 +158,7 @@ Tính năng này cho phép nhân viên nhấn nút "Gợi ý AI" trên form côn
 - Tạo một công việc hoặc dự án mới, nhập tên.
 - Nhấn nút Gợi ý AI (trên form công việc hoặc dự án).
 - Sau vài giây, trường mô tả sẽ được điền nội dung do Gemini sinh ra.
+- **Nếu bạn muốn thêm chatbot > cài module:** *ai_assistant* (Lưu ý AI đang trong giai đoạn phát triển).
 
 # 8. Liên hệ
 #### [Facebook](https://www.facebook.com/tran.quang.tung.716688)
