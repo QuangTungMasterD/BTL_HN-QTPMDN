@@ -37,7 +37,8 @@ class NhanVien(models.Model):
         for rec in self:
             if self.search_count([
                 ('so_cccd', '=', rec.so_cccd),
-                ('id', '!=', rec.id)
+                ('id', '!=', rec.id),
+                ('so_cccd', '!=', '')
             ]) > 0:
                 raise ValidationError("Số cccd đã tồn tại!")
 
