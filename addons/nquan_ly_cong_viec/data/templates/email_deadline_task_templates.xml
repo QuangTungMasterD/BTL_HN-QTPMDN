@@ -14,12 +14,19 @@
             </field>
             <field name="reply_to">{{ user.email }}</field>
             <field name="body_html" type="html">
-                <div style="font-family: Arial, sans-serif;">
+                <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
                     <p>Kính gửi,</p>
-                    <p>Công việc <strong><t t-out="object.ten_cv"/></strong> (mã: <t t-out="object.ma_cv"/>) thuộc dự án <strong><t t-out="object.du_an_id.name"/></strong> sắp đến hạn.</p>
-                    <p>📅 Ngày hết hạn: <strong><t t-out="object.ngay_kt"/></strong></p>
+                    
+                    <p>Công việc <strong><t t-out="object.ten_cv or ''"/></strong> 
+                    (mã: <t t-out="object.ma_cv or ''"/>) 
+                    thuộc dự án <strong><t t-out="object.du_an_id.name or ''"/></strong> sắp đến hạn.</p>
+                    
+                    <p>📅 Ngày hết hạn: <strong><t t-out="object.ngay_kt or ''"/></strong></p>
+                    
                     <p>Vui lòng cập nhật tiến độ để hoàn thành đúng hạn.</p>
-                    <p>Trân trọng, <br/>Hệ thống quản lý công việc</p>
+                    
+                    <p>Trân trọng,<br/>
+                    Hệ thống quản lý công việc</p>
                 </div>
             </field>
         </record>

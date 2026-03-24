@@ -10,12 +10,19 @@
             <field name="email_to">{{ object.phu_trach_id.work_email or '' }}</field>
             <field name="reply_to">{{ user.email }}</field>
             <field name="body_html" type="html">
-                <div style="font-family: Arial, sans-serif;">
+                <div style="font-family: Arial, sans-serif; line-height: 1.6; max-width: 600px;">
                     <p>Kính gửi,</p>
-                    <p>Dự án <strong><t t-out="object.name"/></strong> (mã: <t t-out="object.ma_du_an"/>) sắp đến hạn hoàn thành.</p>
-                    <p>📅 Ngày kết thúc dự kiến: <strong><t t-out="object.ngay_kt_du_kien"/></strong></p>
+                    
+                    <p>Dự án <strong><t t-out="object.name or ''"/></strong> 
+                       (mã: <t t-out="object.ma_du_an or ''"/>) 
+                       sắp đến hạn hoàn thành.</p>
+                    
+                    <p>📅 Ngày kết thúc dự kiến: <strong><t t-out="object.ngay_kt_du_kien or ''"/></strong></p>
+                    
                     <p>Vui lòng theo dõi tiến độ và có biện pháp đảm bảo đúng hạn.</p>
-                    <p>Trân trọng,<br/>Hệ thống quản lý dự án</p>
+                    
+                    <p>Trân trọng,<br/>
+                       Hệ thống quản lý dự án</p>
                 </div>
             </field>
         </record>
