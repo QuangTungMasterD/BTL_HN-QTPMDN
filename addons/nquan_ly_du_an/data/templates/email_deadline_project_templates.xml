@@ -12,8 +12,8 @@
             <field name="body_html" type="html">
                 <div style="font-family: Arial, sans-serif;">
                     <p>Kính gửi,</p>
-                    <p>Dự án <strong>{{ object.name }}</strong> (mã: {{ object.ma_du_an }}) sắp đến hạn hoàn thành.</p>
-                    <p>📅 Ngày kết thúc dự kiến: <strong>{{ object.ngay_kt_du_kien }}</strong></p>
+                    <p>Dự án <strong><t t-out="object.name"/></strong> (mã: <t t-out="object.ma_du_an"/>) sắp đến hạn hoàn thành.</p>
+                    <p>📅 Ngày kết thúc dự kiến: <strong><t t-out="object.ngay_kt_du_kien"/></strong></p>
                     <p>Vui lòng theo dõi tiến độ và có biện pháp đảm bảo đúng hạn.</p>
                     <p>Trân trọng,<br/>Hệ thống quản lý dự án</p>
                 </div>

@@ -16,8 +16,8 @@
             <field name="body_html" type="html">
                 <div style="font-family: Arial, sans-serif;">
                     <p>Kính gửi,</p>
-                    <p>Công việc <strong>{{ object.ten_cv }}</strong> (mã: {{ object.ma_cv }}) thuộc dự án <strong>{{ object.du_an_id.name }}</strong> sắp đến hạn.</p>
-                    <p>📅 Ngày hết hạn: <strong>{{ object.ngay_kt }}</strong></p>
+                    <p>Công việc <strong><t t-out="object.ten_cv"/></strong> (mã: <t t-out="object.ma_cv"/>) thuộc dự án <strong><t t-out="object.du_an_id.name"/></strong> sắp đến hạn.</p>
+                    <p>📅 Ngày hết hạn: <strong><t t-out="object.ngay_kt"/></strong></p>
                     <p>Vui lòng cập nhật tiến độ để hoàn thành đúng hạn.</p>
                     <p>Trân trọng, <br/>Hệ thống quản lý công việc</p>
                 </div>
