@@ -14,6 +14,18 @@ for task in records:
         task.write({'trang_thai': 'hoan_thanh'})
     elif task.tien_do_hien_tai < 100 and task.trang_thai == 'hoan_thanh':
         task.write({'trang_thai': 'dang_lam'})
+
+
+template = env.ref('nquan_ly_cong_viec.email_template_task_deadline')
+
+for task in records:
+    if task.nhan_vien_phu_trach_ids or task.du_an_id.phu_trach_id:
+        values = template.generate_email(
+            task.id,
+            ['body_html', 'subject', 'email_to', 'email_cc']
+        )
+        mail = env['mail.mail'].create(values)
+        mail.send()
 ]]>
             </field>
         </record>

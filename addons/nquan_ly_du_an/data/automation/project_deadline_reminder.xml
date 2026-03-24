@@ -10,11 +10,10 @@
             <field name="code">
 <![CDATA[
 template = env.ref('nquan_ly_du_an.email_template_project_deadline')
+
 for project in records:
     if project.phu_trach_id and project.phu_trach_id.work_email:
-        values = template.generate_email(project.id)
-        mail = env['mail.mail'].create(values)
-        mail.send()
+        template.send_mail(project.id, force_send=True)
 ]]>
             </field>
         </record>

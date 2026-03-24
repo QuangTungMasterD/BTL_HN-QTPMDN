@@ -10,12 +10,10 @@
             <field name="code">
 <![CDATA[
 template = env.ref('nquan_ly_cong_viec.email_template_task_deadline')
+
 for task in records:
-    # Chỉ gửi nếu có người nhận
     if task.nhan_vien_phu_trach_ids or task.du_an_id.phu_trach_id:
-        values = template.generate_email(task.id)
-        mail = env['mail.mail'].create(values)
-        mail.send()
+        template.send_mail(task.id, force_send=True)
 ]]>
             </field>
         </record>
