@@ -9,17 +9,16 @@
             <field name="state">code</field>
             <field name="code">
 <![CDATA[
+# Trong server action code
 for task in records:
-    if not task.nhan_vien_phu_trach_ids:
+    if not task.nhan_vien_phu_trach_ids or not task.ngay_kt:
         continue
-    if not task.ngay_kt:  # Thêm kiểm tra
-        continue
-    # Lấy danh sách đối tác (partner) từ nhân viên phụ trách
     partners = task.nhan_vien_phu_trach_ids.mapped('user_id.partner_id')
     if not partners:
         continue
-    # Tạo sự kiện lịch (cả ngày)
-    env['calendar.event'].create({
+    # Lấy sự kiện hiện có (nếu có)
+    event = task.calendar_event_id
+    vals = {
         'name': f"Công việc: {task.ten_cv}",
         'description': f"Mô tả: {task.mo_ta or ''}\nDự án: {task.du_an_id.name}",
         'start': task.ngay_kt,
@@ -27,7 +26,12 @@ for task in records:
         'allday': True,
         'partner_ids': [(6, 0, partners.ids)],
         'user_id': task.nhan_vien_phu_trach_ids[0].user_id.id or env.user.id,
-    })
+    }
+    if event:
+        event.write(vals)
+    else:
+        event = env['calendar.event'].create(vals)
+        task.write({'calendar_event_id': event.id})
 ]]>
             </field>
         </record>
@@ -46,6 +50,9 @@ for task in records:
             <field name="name">Tạo sự kiện lịch khi cập nhật công việc</field>
             <field name="model_id" ref="model_cong_viec"/>
             <field name="trigger">on_write</field>
+            <!-- Chỉ kích hoạt khi trường tien_do_hien_tai thay đổi (cần Odoo >=15) -->
+            <field name="trigger_field_ids" eval="[(4, ref('field_cong_viec__ngay_kt')), (4, ref('field_cong_viec__nhan_vien_phu_trach_ids'))]"/>
+
             <field name="action_server_id" ref="action_server_create_event_from_task"/>
             <field name="active">True</field>
         </record>

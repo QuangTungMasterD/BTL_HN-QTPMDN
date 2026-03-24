@@ -11,6 +11,8 @@ class CongViec(models.Model):
 
     display_name = fields.Char(string="Tên hiển thị", compute='_compute_display_name', store=True)
 
+    calendar_event_id = fields.Many2one('calendar.event', string="Sự kiện lịch")
+
     ma_cv = fields.Char(string="Mã công việc", required=True)
     ten_cv = fields.Char(string="Tên công việc", required=True)
     mo_ta = fields.Text(string="Mô tả công việc")
